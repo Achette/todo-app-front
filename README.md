@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Todo App
 
-## Getting Started
+Uma aplicação de gerenciamento de tarefas moderna construída com Next.js e React.
 
-First, run the development server:
+## 🚀 Começando
+
+Para iniciar o servidor de desenvolvimento:
 
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
-# or
+# ou
 pnpm dev
-# or
+# ou
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver a aplicação.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📋 Funcionalidades
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- ✅ Criar novas tarefas
+- ✏️ Editar tarefas existentes
+- 🗑️ Deletar tarefas
+- ✓ Marcar tarefas como concluídas
+- 💾 Persistência de dados
+- 🎨 Interface limpa e responsiva
 
-## Learn More
+## 🛠️ Tecnologias Utilizadas
 
-To learn more about Next.js, take a look at the following resources:
+- **Next.js** - Framework React
+- **TypeScript** - Tipagem estática
+- **React** - Biblioteca UI
+- **Chakra-UI** - Componentes customizados e CSS
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📁 Estrutura do Projeto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/
+│   ├── layout.tsx       # Layout raiz da aplicação
+│   ├── page.tsx         # Página principal
+│   └── global.css       # Estilos globais
+├── components/
+│   └── ui/
+│       └── provider.tsx  # Provider de contexto
+└── ...
+```
 
-## Deploy on Vercel
+## 🔧 Scripts Disponíveis
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `npm run dev` - Inicia o servidor de desenvolvimento
+- `npm run build` - Constrói a aplicação para produção
+- `npm start` - Inicia o servidor de produção
+- `npm run lint` - Executa verificação de código
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 Como Usar
+
+1. Digite sua tarefa no campo de entrada
+2. Clique em "Adicionar" para criar a tarefa
+3. Use os botões para editar ou deletar tarefas
+4. Marque como concluída clicando no checkbox
+
+## 🚀 Deploy
+
+Para fazer deploy da aplicação, use a [Plataforma Vercel](https://vercel.com):
+
+1. Push do código para um repositório Git
+2. Importe o repositório no Vercel
+3. Vercel fará build e deployment automaticamente
+
+Consulte a [documentação de deployment do Next.js](https://nextjs.org/docs/app/building-your-application/deploying) para mais detalhes.
+
+## 📚 Saiba Mais
+
+- [Documentação Next.js](https://nextjs.org/docs) - recursos e features
+- [Learn Next.js](https://nextjs.org/learn) - tutorial interativo
+- [Repositório Next.js](https://github.com/vercel/next.js) - feedback e contribuições
+
+## 📄 Licença
+
+Este projeto está aberto para fins educacionais.
