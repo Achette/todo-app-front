@@ -6,8 +6,13 @@ const config = defineConfig({
     tokens: {
       colors: {
         indigo600: { value: '#4f46e5' },
+        indigo800: { value: '#4f46e5' },
         purple600: { value: '#9333ea' },
         gray400: { value: '#6b7280' },
+        white200: { value: '#f9f9f9' },
+        green400: { value: '#16a34a' },
+        bgActive: { value: '#eef2ff' },
+        bgDone: { value: '#f0fdf4' },
       },
       fonts: {
         body: { value: 'Elms Sans, sans-serif' },
