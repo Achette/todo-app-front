@@ -6,7 +6,6 @@ import './global.css'
 const elmsSans = Elms_Sans({
   style: ['normal', 'italic'],
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
 })
 
 export const metadata: Metadata = {
@@ -22,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br" suppressHydrationWarning={true}>
       <body className={`${elmsSans.className} `}>
-        <Provider themes={['light']}>{children}</Provider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   )
