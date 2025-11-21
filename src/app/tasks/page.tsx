@@ -1,22 +1,21 @@
+import { Box } from '@chakra-ui/react'
 import { Dashboard, Header } from '@/components'
-import { Box, Text } from '@chakra-ui/react'
+import { getAllTasks } from '@/services'
 
-const TaskDashboard = () => {
+const TaskDashboard = async () => {
+  const tasks = await getAllTasks()
+
   return (
-    <Box
-      borderBottom="1px solid #f3f4f6"
-      border="1px solid red"
-      maxW="4xl"
-      height="100vh"
-      mx="auto"
-      px={6}
-      py={8}
-    >
-    
-        <Header />
- 
+    <Box>
+      <Box bg="white200" borderBottom="1px solid #f3f4f6" height="auto">
+        <Box maxW="5xl" px={6} py={8} mx="auto">
+          <Header tasks={tasks} />
+        </Box>
+      </Box>
 
-      <Dashboard />
+      <Box maxW="5xl" px={6} py={8} mx="auto">
+        <Dashboard />
+      </Box>
     </Box>
   )
 }
