@@ -32,7 +32,7 @@ export const ResumeCard = ({ taskStatus, taskCount }: ResumeCardProps) => {
       borderRadius="12px"
     >
       <Text color={color} fontWeight={700} fontSize="24px" lineHeight="32px">
-        {taskCount}
+        {taskCount ?? 0}
       </Text>
       <Text color={color} fontWeight={500} fontSize="12px" lineHeight="16px">
         {label}
