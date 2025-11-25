@@ -2,6 +2,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  scroll-behavior: smooth;
 }
 
 html,
@@ -18,4 +19,56 @@ body {
 
 p {
   margin: 0;
+}
+
+/* Scrollbar customizada */
+#task-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s ease;
+}
+
+#task-scrollbar:hover {
+  scrollbar-color: #d1d5db transparent;
+}
+
+/* Webkit (Chrome, Safari, Edge) */
+#task-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track oculta por padrão */
+#task-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+  margin: 8px 0;
+}
+
+/* Track aparece no hover */
+#task-scrollbar:hover::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+/* Thumb oculto por padrão */
+#task-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+/* Thumb aparece no hover - cinza claro */
+#task-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border: 2px solid #f3f4f6;
+}
+
+/* Thumb hover - cinza um pouco mais escuro */
+#task-scrollbar:hover::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Remove as setas (botões) */
+#task-scrollbar::-webkit-scrollbar-button {
+  display: none;
 }
