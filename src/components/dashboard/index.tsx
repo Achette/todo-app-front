@@ -1,15 +1,28 @@
 'use client'
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { useMemo, useState } from 'react'
+import { Box, Flex } from '@chakra-ui/react'
+import { tabsTitle } from '@/constants'
 import { Tabs } from '../tabs'
-import { tabsTitle } from '../tabs/tabs'
-import { useState } from 'react'
+import { TaskItem } from '../TaskItem'
 
 interface DashTasks {
   tasks: TaskResponse
 }
 
-export const Dashboard = ({ tasks }: DashTasks) => {
+export const Dashboard = ({ tasks: initialTasks }: DashTasks) => {
   const [activeTab, setActiveTab] = useState(tabsTitle[0])
+  const tasks = initialTasks // para o revalidate funcionar e refazer o getAll no server, devo adicionar uma variavel simples e não um useState
+
+  const filters = [
+    () => tasks,
+    () => tasks.filter((task) => !task.completed),
+    () => tasks.filter((task) => task.completed),
+  ]
+
+  const filteredTasks = useMemo(() => {
+    const index = tabsTitle.indexOf(activeTab)
+    return index !== -1 ? filters[index]() : tasks
+  }, [tasks, activeTab])
 
   return (
     <Box>
@@ -24,12 +37,14 @@ export const Dashboard = ({ tasks }: DashTasks) => {
         ))}
       </Flex>
 
-      {/* TODO: Refatorar a exibição das tasks */}
-      <Box>
-        {tasks.map((task) => (
-          <Text key={task.id} color="gray400">
-            {task.title}
-          </Text>
+      <Box
+        id="task-scrollbar"
+        marginTop="2rem"
+        maxH="calc(100vh - 325px)"
+        overflowY="auto"
+      >
+        {filteredTasks.map((task) => (
+          <TaskItem key={task.id} task={task} />
         ))}
       </Box>
     </Box>
