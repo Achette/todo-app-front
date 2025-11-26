@@ -1,5 +1,4 @@
 import { Button, Flex } from '@chakra-ui/react'
-import { tabsTitle } from './tabs'
 
 interface TabProps {
   name: string
