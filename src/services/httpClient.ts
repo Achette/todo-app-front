@@ -3,6 +3,7 @@ export class HttpClient {
   private static readonly COMMON_HEADERS = {
     Accept: 'application/json',
     'Cache-Control': 'no-cache',
+    'Content-Type': 'application/json',
   }
 
   static async request<T>(
@@ -17,7 +18,7 @@ export class HttpClient {
       const response = await fetch(url, {
         ...options,
         signal: controller.signal,
-          headers: {
+        headers: {
           ...this.COMMON_HEADERS,
           ...options.headers,
         },
