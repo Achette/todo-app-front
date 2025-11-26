@@ -1,83 +1,288 @@
-# Todo App
+# Task App
 
-Uma aplicação de gerenciamento de tarefas moderna construída com Next.js e React.
+Uma aplicação de gerenciamento de tarefas moderna construída com **Next.js 16** e **React 19**, focada em explorar as últimas novidades do framework como **Server Actions** e **Server Components**.
+
+## 🎯 Objetivo do Projeto
+
+Este projeto foi criado com foco em estudar e implementar:
+- ✨ **Server Components** - Renderização no servidor
+- ⚡ **Server Actions** - Mutações de dados direto no servidor
+- 🔄 **useTransition** - Transições de UI com states assíncronos
+- 🎨 **Chakra UI** - Componentes acessíveis e responsivos
+- 📝 **TypeScript** - Tipagem estática e segurança de tipos
 
 ## 🚀 Começando
 
-Para iniciar o servidor de desenvolvimento:
+### Pré-requisitos
+- Node.js 18+
+- npm, yarn, pnpm ou bun
+
+### Instalação e Execução
 
 ```bash
+# Instalar dependências
+npm install
+
+# Iniciar servidor de desenvolvimento
 npm run dev
-# ou
-yarn dev
-# ou
-pnpm dev
-# ou
-bun dev
 ```
 
-Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver a aplicação.
+Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
 
 ## 📋 Funcionalidades
 
 - ✅ Criar novas tarefas
 - ✏️ Editar tarefas existentes
 - 🗑️ Deletar tarefas
-- ✓ Marcar tarefas como concluídas
-- 💾 Persistência de dados
+- ✓ Marcar tarefas como concluídas (com Server Actions)
+- 💾 Persistência de dados em backend
 - 🎨 Interface limpa e responsiva
+- ⚡ Atualizações otimistas com useTransition
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Next.js** - Framework React
-- **TypeScript** - Tipagem estática
-- **React** - Biblioteca UI
-- **Chakra-UI** - Componentes customizados e CSS
+| Tecnologia | Descrição |
+|-----------|-----------|
+| **Next.js 16** | Framework React com App Router |
+| **React 19** | Biblioteca UI com novos hooks |
+| **TypeScript** | Tipagem estática |
+| **Chakra UI** | Sistema de componentes |
+| **Server Actions** | Funções server-side para mutações |
+| **Server Components** | Renderização no servidor |
 
-## 📁 Estrutura do Projeto
+## 📁 Estrutura Completa do Projeto
 
 ```
-src/
-├── app/
-│   ├── layout.tsx       # Layout raiz da aplicação
-│   ├── page.tsx         # Página principal
-│   └── global.css       # Estilos globais
-├── components/
-│   └── ui/
-│       └── provider.tsx  # Provider de contexto
-└── ...
+todo-app/
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx                 # Layout raiz com Provider Chakra UI
+│   │   ├── page.tsx                   # Página inicial
+│   │   ├── global.css                 # Estilos globais
+│   │   └── tasks/
+│   │       └── page.tsx               # Dashboard de tarefas (Server Component)
+│   │
+│   ├── components/
+│   │   ├── TaskItem/
+│   │   │   ├── index.tsx              # Componente de item de tarefa (Client)
+│   │   │   ├── toggleTask.ts          # Server Action para toggle
+│   │   │   └── types.ts               # Tipos da tarefa
+│   │   │
+│   │   ├── Dashboard/
+│   │   │   ├── index.tsx              # Dashboard principal (Server Component)
+│   │   │   └── dashboard.module.css   # Estilos do dashboard
+│   │   │
+│   │   ├── TaskForm/
+│   │   │   ├── index.tsx              # Formulário de criação (Client)
+│   │   │   └── createTask.ts          # Server Action criar tarefa
+│   │   │
+│   │   ├── priorityLabel.tsx          # Label de prioridade
+│   │   ├── date.tsx                   # Formatador de data
+│   │   ├── icon-button.tsx            # Botão com ícone
+│   │   │
+│   │   └── ui/
+│   │       └── provider.tsx           # Provider Chakra UI
+│   │
+│   ├── services/
+│   │   ├── api-services.ts            # Funções de chamadas à API
+│   │   │   ├── getAllTasks()
+│   │   │   ├── onChangeCheckbox()
+│   │   │   ├── createTask()
+│   │   │   ├── updateTask()
+│   │   │   └── deleteTask()
+│   │   │
+│   │   └── httpClient.ts              # Cliente HTTP customizado
+│   │
+│   ├── types/
+│   │   ├── task.ts                    # Interface TaskResponse
+│   │   ├── priority.ts                # Enum Priority
+│   │   └── api.ts                     # Tipos de resposta da API
+│   │
+│   ├── hooks/
+│   │   └── useTask.ts                 # Hook customizado para tarefas
+│   │
+│   ├── utils/
+│   │   ├── dateFormat.ts              # Utilitários de formatação de data
+│   │   └── validators.ts              # Validadores
+│   │
+│   └── constants/
+│       ├── api.ts                     # URLs e constantes de API
+│       └── messages.ts                # Mensagens de erro e sucesso
+│
+├── public/
+│   ├── icons/                         # Ícones SVG
+│   └── images/                        # Imagens estáticas
+│
+├── .env.local                         # Variáveis de ambiente (local)
+├── .env.example                       # Exemplo de variáveis
+├── .gitignore                         # Arquivos a ignorar no git
+├── package.json                       # Dependências do projeto
+├── tsconfig.json                      # Configuração TypeScript
+├── next.config.ts                     # Configuração Next.js
+├── README.md                          # Documentação do projeto
+└── .eslintrc.json                     # Configuração ESLint
 ```
+
+## 📂 Descrição dos Diretórios
+
+### `src/app/`
+Roteamento e layouts do Next.js usando App Router
+
+### `src/components/`
+Componentes React divididos por feature:
+- **TaskItem** - Exibe uma tarefa individual (Client Component com useTransition)
+- **Dashboard** - Container principal de tarefas (Server Component)
+- **TaskForm** - Formulário de criação (Client Component)
+- **ui** - Componentes base do Chakra UI
+
+### `src/services/`
+Camada de comunicação com a API backend
+
+### `src/types/`
+Definições de interfaces TypeScript reutilizáveis
+
+### `src/hooks/`
+Hooks customizados do React
+
+### `src/utils/`
+Funções utilitárias e helpers
+
+### `src/constants/`
+Constantes da aplicação
+
+## 🔄 Fluxo de Dados
+
+```
+Browser
+   ↓
+[page.tsx] Server Component
+   ↓
+[getAllTasks] - API Call
+   ↓
+[Dashboard] Server Component
+   ↓
+[TaskItem] Client Component (useTransition)
+   ↓
+[toggleTask] Server Action
+   ↓
+[onChangeCheckbox] API Call
+   ↓
+[revalidatePath] - Revalidação de dados
+```
+
+## 📦 Tipos e Interfaces
+
+```typescript
+// types/task.ts
+export interface TaskResponse {
+  id: number
+  title: string
+  description: string
+  completed: boolean
+  createdAt: string
+  priority: Priority
+  userId: number
+}
+
+// types/priority.ts
+export enum Priority {
+  LOW = 'low',
+  MEDIUM = 'medium',
+  HIGH = 'high'
+}
+```
+
+---
+
+Esta estrutura segue as melhores práticas do Next.js 16 com separação clara entre Server Components e Client Components! 🚀
 
 ## 🔧 Scripts Disponíveis
 
-- `npm run dev` - Inicia o servidor de desenvolvimento
-- `npm run build` - Constrói a aplicação para produção
-- `npm start` - Inicia o servidor de produção
-- `npm run lint` - Executa verificação de código
+```bash
+npm run dev      # Inicia servidor de desenvolvimento
+npm run build    # Constrói para produção
+npm start        # Inicia servidor de produção
+npm run lint     # Executa linter
+```
+
+## 💡 Conceitos-Chave do Projeto
+
+### Server Actions
+As Server Actions são utilizadas para mutações de dados sem necessidade de criar rotas API tradicionais:
+
+```typescript
+// Exemplo: toggleTask.ts
+'use server'
+export const toggleTask = async (id: number, completed: boolean) => {
+  await onChangeCheckbox(id, completed)
+  revalidatePath('/tasks')
+}
+```
+
+### Server Components
+Componentes renderizados no servidor que buscam dados diretamente:
+
+```typescript
+// Exemplo: page.tsx
+export default async function TasksPage() {
+  const tasks = await getAllTasks()
+  return <Dashboard tasks={tasks} />
+}
+```
+
+### useTransition Hook
+Gerencia estados de transição em Client Components:
+
+```typescript
+const [pending, startTransition] = useTransition()
+startTransition(() => toggleTask(id, completed))
+```
 
 ## 📝 Como Usar
 
-1. Digite sua tarefa no campo de entrada
-2. Clique em "Adicionar" para criar a tarefa
-3. Use os botões para editar ou deletar tarefas
-4. Marque como concluída clicando no checkbox
+1. **Criar tarefa** - Preencha o formulário e clique em "Adicionar"
+2. **Marcar como concluída** - Clique no checkbox (usa Server Action)
+3. **Editar** - Clique no ícone de edição
+4. **Deletar** - Clique no ícone de lixeira
+
+## 🔌 Integração com Backend
+
+O projeto se conecta a uma API backend em `http://localhost:8080`:
+
+```
+GET  /tasks              # Listar todas as tarefas
+POST /tasks              # Criar nova tarefa
+PATCH /tasks/:id         # Atualizar tarefa
+DELETE /tasks/:id        # Deletar tarefa
+```
+
+Configure a URL base em `.env.local`:
+```
+BASE_URL=http://localhost:8080
+```
+
+## 📚 Recursos de Aprendizado
+
+- [Documentação Next.js 15](https://nextjs.org/docs)
+- [Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions)
+- [Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components)
+- [React 19 Features](https://react.dev)
+- [Chakra UI Docs](https://chakra-ui.com)
 
 ## 🚀 Deploy
 
-Para fazer deploy da aplicação, use a [Plataforma Vercel](https://vercel.com):
+### Vercel (Recomendado)
+```bash
+vercel deploy
+```
 
-1. Push do código para um repositório Git
-2. Importe o repositório no Vercel
-3. Vercel fará build e deployment automaticamente
-
-Consulte a [documentação de deployment do Next.js](https://nextjs.org/docs/app/building-your-application/deploying) para mais detalhes.
-
-## 📚 Saiba Mais
-
-- [Documentação Next.js](https://nextjs.org/docs) - recursos e features
-- [Learn Next.js](https://nextjs.org/learn) - tutorial interativo
-- [Repositório Next.js](https://github.com/vercel/next.js) - feedback e contribuições
+### Outras plataformas
+Consulte a [documentação de deployment](https://nextjs.org/docs/app/building-your-application/deploying)
 
 ## 📄 Licença
 
-Este projeto está aberto para fins educacionais.
+Projeto open source para fins educacionais.
+
+---
+
+**Desenvolvido com ❤️ para estudar Next.js 16 e React 19**
