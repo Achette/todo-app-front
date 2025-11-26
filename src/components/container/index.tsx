@@ -1,4 +1,3 @@
-// components/Container.tsx
 import { Box, BoxProps } from '@chakra-ui/react'
 
 export const Container = ({ children, ...props }: BoxProps) => (
