@@ -32,7 +32,7 @@ export const TaskItem = ({ task }: TaskItemProps) => {
       bg="white1000"
       marginBottom="12px"
       borderRadius="16px"
-      padding="24px"
+      padding="20px 24px"
       boxShadow="2px 2px 8px rgba(0, 0, 0, 0.2)"
       border="2px solid"
       borderColor="transparent"
