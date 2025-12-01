@@ -2,7 +2,7 @@ import { Text, VStack } from '@chakra-ui/react'
 
 interface ResumeCardProps {
   taskStatus: 'active' | 'done'
-  taskCount: string | number,
+  taskCount?: string | number,
 
 }
 
