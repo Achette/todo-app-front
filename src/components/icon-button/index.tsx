@@ -1,6 +1,5 @@
 import { Button } from '@chakra-ui/react'
 import { ReactElement } from 'react'
-import { IconType } from 'react-icons'
 import { LuPencilLine, LuTrash2 } from 'react-icons/lu'
 
 interface ButtonProps {
