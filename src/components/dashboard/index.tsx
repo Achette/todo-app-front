@@ -4,6 +4,7 @@ import { Box, Flex } from '@chakra-ui/react'
 import { tabsTitle } from '@/constants'
 import { Tabs } from '../tabs'
 import { TaskItem } from '../TaskItem'
+import { Container } from '../container'
 
 interface DashTasks {
   tasks: TaskResponse
@@ -25,28 +26,29 @@ export const Dashboard = ({ tasks: initialTasks }: DashTasks) => {
   }, [tasks, activeTab])
 
   return (
-    <Box>
-      <Flex gap="12px">
-        {tabsTitle.map((tab) => (
-          <Tabs
-            key={tab}
-            name={tab}
-            isActive={activeTab === tab}
-            onClick={() => setActiveTab(tab)}
-          />
-        ))}
-      </Flex>
-
-      <Box
-        id="task-scrollbar"
-        marginTop="2rem"
-        maxH="calc(100vh - 325px)"
-        overflowY="auto"
-      >
-        {filteredTasks.map((task) => (
-          <TaskItem key={task.id} task={task} />
-        ))}
+    <Container>
+      <Box>
+        <Flex gap="12px">
+          {tabsTitle.map((tab) => (
+            <Tabs
+              key={tab}
+              name={tab}
+              isActive={activeTab === tab}
+              onClick={() => setActiveTab(tab)}
+            />
+          ))}
+        </Flex>
+        <Box
+          id="task-scrollbar"
+          marginTop="2rem"
+          maxH="calc(100vh - 316px)"
+          overflowY="auto"
+        >
+          {filteredTasks.map((task) => (
+            <TaskItem key={task.id} task={task} />
+          ))}
+        </Box>
       </Box>
-    </Box>
+    </Container>
   )
 }
