@@ -5,6 +5,7 @@ const config = defineConfig({
   theme: {
     tokens: {
       colors: {
+        indigo100: { value: '#E0E7FF' },
         indigo600: { value: '#4f46e5' },
         indigo800: { value: '#4f46e5' },
         purple600: { value: '#9333ea' },
@@ -16,7 +17,7 @@ const config = defineConfig({
         green500: { value: '#22c552' },
         emerald500: { value: '#10b981' },
         red500: { value: '#EF4444' },
-        yellow500: { value: '#EAB308'},
+        yellow500: { value: '#EAB308' },
         bgActive: { value: '#eef2ff' },
         bgDone: { value: '#f0fdf4' },
       },
