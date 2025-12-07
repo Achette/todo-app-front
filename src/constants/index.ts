@@ -1,3 +1,5 @@
 export * from './tabs'
 export * from './headerEnum'
 export * from './buildHeaderInfo'
+export * from './formLabelEnum'
+export * from './priorityEnum' 
