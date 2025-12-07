@@ -1,6 +1,6 @@
 import { Button, Flex } from '@chakra-ui/react'
 
-interface TabProps {
+export interface TabProps {
   name: string
   isActive: boolean
   onClick: () => void
