@@ -1,7 +1,6 @@
-import { Container, Header } from '@/components'
+import { Box } from '@chakra-ui/react'
+import { Container, Header, TaskForm } from '@/components'
 import { HeaderTypeEnum } from '@/constants'
-import { Box, Text } from '@chakra-ui/react'
-import { LuType } from 'react-icons/lu'
 
 const AddTask = () => {
   return (
@@ -15,9 +14,11 @@ const AddTask = () => {
           border="2px"
           borderColor="gray.100"
           overflow="hidden"
+          p="32px"
         >
-          <LuType color="indigo800" />
-          <Text></Text>
+
+          <TaskForm />
+         
         </Box>
       </Container>
     </>
