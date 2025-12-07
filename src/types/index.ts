@@ -1,4 +1,4 @@
-type Priority = 'HIGH' | 'MEDIUM' | 'LOW'
+type Priority = 'ALTA' | 'MEDIA' | 'BAIXA'
 
 type TaskResponse = {
   id: number
