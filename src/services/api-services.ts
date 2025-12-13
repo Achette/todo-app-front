@@ -8,8 +8,29 @@ export const getAllTasks = async (): Promise<TaskResponse> => {
   return HttpClient.request<TaskResponse>(endpoint, { method: 'GET' })
 }
 
-export const toggleTaskCompletion  = async (id: number, completed: boolean) => {
-  const endpoint = `http://localhost:8080/tasks/${id}`
+export const createNewTask = async (
+  title: string,
+  description: string,
+  priority: string,
+  dueDate: string
+): Promise<TaskResponse> => {
+  const endpoint = `${url}/tasks`
+
+  return HttpClient.request<TaskResponse>(endpoint, {
+    method: 'POST',
+    body: JSON.stringify({
+      userId: 5,
+      completed: false,
+      title,
+      description,
+      priority,
+      createdAt: dueDate,
+    }),
+  })
+}
+
+export const toggleTaskCompletion = async (id: number, completed: boolean) => {
+  const endpoint = `${url}/tasks/${id}`
 
   return HttpClient.request<TaskResponse>(endpoint, {
     method: 'PATCH',
