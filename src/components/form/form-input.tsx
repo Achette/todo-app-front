@@ -23,7 +23,7 @@ export const FormField = ({
     borderColor: 'gray.200',
     borderRadius: 'xl',
     _focus: {
-      borderColor: 'indigo600',
+      borderColor: 'indigo800',
       outline: 'none',
     },
     transition: 'all 0.2s',
