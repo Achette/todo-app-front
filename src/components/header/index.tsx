@@ -1,13 +1,13 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
+import { HeaderDescription, HeaderTypeEnum } from '@/constants'
 import { ResumeCard } from '../card'
 import { AddButton } from '../add-button'
-import { HeaderDescription, HeaderTypeEnum } from '@/constants'
 import { Container } from '../container'
 import { ArrowBack } from '../arrow-back'
 
 interface HeaderProps {
   counters?: { active: number; done: number }
-  type?: HeaderTypeEnum
+  type?: keyof typeof HeaderTypeEnum
 }
 export const Header = ({
   counters,
@@ -22,7 +22,7 @@ export const Header = ({
 
   const { title, description } = HeaderDescription[type]
 
-  const buttonType = type === HeaderTypeEnum.DEFAULT ? 'ADD' : 'SAVE'
+  const shouldShowButton = type === HeaderTypeEnum.DEFAULT ? true : false
 
   return (
     <Box bg="white200" borderBottom="2px solid #f3f4f6" height="auto">
@@ -51,7 +51,7 @@ export const Header = ({
               <ResumeCard taskCount={done} taskStatus="done" />
             </Flex>
           ) : null}
-          <AddButton type={buttonType} />
+          <AddButton isVisible={shouldShowButton} />
         </Flex>
       </Container>
     </Box>

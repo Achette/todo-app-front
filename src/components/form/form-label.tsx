@@ -4,7 +4,7 @@ import { LuType, LuAlignLeft, LuTag, LuCalendar } from 'react-icons/lu'
 import { FormLabelEnum } from '@/constants'
 
 interface FormLabelProps {
-  fieldType: FormLabelEnum
+  fieldType: keyof typeof FormLabelEnum
 }
 
 const FORM_LABEL_DETAIL: Record<string, { text: string; icon: ReactElement }> =

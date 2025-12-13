@@ -1,5 +1,5 @@
-export enum HeaderTypeEnum {
-  DEFAULT,
-  EDIT,
-  ADD,
-}
+export const HeaderTypeEnum = {
+  DEFAULT: 'DEFAULT',
+  EDIT: 'EDIT',
+  ADD: 'ADD',
+} as const

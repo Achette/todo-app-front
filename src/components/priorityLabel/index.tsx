@@ -1,3 +1,4 @@
+import { PriorityEnum } from '@/constants'
 import { Box, Flex, Text } from '@chakra-ui/react'
 
 interface PriorityLabelProps {
@@ -23,7 +24,7 @@ export const PriorityLabel = ({ priority, size }: PriorityLabelProps) => {
       ></Box>
       {!size ? (
         <Text color="gray400" fontSize="12px">
-          {priority.charAt(0).toUpperCase() + priority.slice(1).toLowerCase()}
+          {PriorityEnum[priority]}
         </Text>
       ) : null}
     </Flex>
