@@ -3,16 +3,11 @@ import { ReactElement } from 'react'
 import { LuPlus, LuSave } from 'react-icons/lu'
 
 interface ButtonProps {
-  type: string
+  isVisible?: boolean
 }
 
-const BUTTON_TYPE: Record<string, { name: string; icon: ReactElement }> = {
-  ADD: { name: 'Adicionar', icon: <LuPlus /> },
-  SAVE: { name: 'Criar Tarefa', icon: <LuSave /> },
-}
-
-export const AddButton = ({ type }: ButtonProps) => {
-  const { name, icon } = BUTTON_TYPE[type]
+export const AddButton = ({ isVisible }: ButtonProps) => {
+  if (!isVisible) return null
 
   return (
     <ChackraLink
@@ -34,8 +29,8 @@ export const AddButton = ({ type }: ButtonProps) => {
         bg: 'linear-gradient(to right, #4338ca, #7e22ce)',
       }}
     >
-      {icon}
-      {name}
+      <LuPlus />
+      Criar Tarefa
     </ChackraLink>
   )
 }
