@@ -24,7 +24,7 @@ export const FormButton = () => {
       }}
     >
       <LuSave />
-      Criar Tarefa
+      Salvar
     </Button>
   )
 }
