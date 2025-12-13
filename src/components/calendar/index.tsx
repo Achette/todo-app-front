@@ -1,8 +1,12 @@
-import { useRef, useState } from 'react'
+import { memo, useRef, useState } from 'react'
 import { Box, Text, Icon } from '@chakra-ui/react'
 import { LuCalendar } from 'react-icons/lu'
 
-export const Calendar = () => {
+interface CalendarProps {
+  onDateChange?: (date: string) => void
+}
+
+export const Calendar = memo(({ onDateChange }: CalendarProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const [date, setDate] = useState(() => {
@@ -23,7 +27,9 @@ export const Calendar = () => {
   }
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(e.target.value)
+    const selectedDate = e.target.value
+    setDate(selectedDate)
+    onDateChange?.(selectedDate)
   }
 
   const formatDate = (dateString: string) => {
@@ -53,6 +59,7 @@ export const Calendar = () => {
       >
         <input
           ref={inputRef}
+          name="dueDate"
           type="date"
           min={getTodayDate()}
           value={date}
@@ -89,4 +96,4 @@ export const Calendar = () => {
       </Box>
     </Box>
   )
-}
+})
