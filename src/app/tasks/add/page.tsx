@@ -1,8 +1,9 @@
 import { Box } from '@chakra-ui/react'
 import { Container, Header, TaskForm } from '@/components'
 import { HeaderTypeEnum } from '@/constants'
+import { handleSubmitForm } from './action'
 
-const AddTask = () => {
+const AddTask = async () => {
   return (
     <>
       <Header type={HeaderTypeEnum.ADD} />
@@ -16,9 +17,7 @@ const AddTask = () => {
           overflow="hidden"
           p="32px"
         >
-
-          <TaskForm />
-         
+          <TaskForm onSubmitForm={handleSubmitForm} />
         </Box>
       </Container>
     </>
