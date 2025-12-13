@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react'
 import { Box, Flex } from '@chakra-ui/react'
 import { tabsTitle } from '@/constants'
 import { Tabs } from '../tabs'
-import { TaskItem } from '../TaskItem'
+import { TaskItem } from '../task-item'
 import { Container } from '../container'
 
 interface DashTasks {
