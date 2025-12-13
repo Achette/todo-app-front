@@ -1,13 +1,13 @@
 export const HeaderDescription = {
-  0: {
+  DEFAULT: {
     title: 'Minhas Tarefas',
     description: 'Organize seu dia de forma inteligente',
   },
-  1: {
+  EDIT: {
     title: 'Editar Tarefa',
     description: 'Atualize os detalhes da sua tarefa',
   },
-  2: {
+  ADD : {
     title: 'Adicionar Tarefa',
     description: 'Crie uma nova tarefa e organize seu dia',
   },
