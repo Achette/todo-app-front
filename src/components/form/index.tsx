@@ -1,13 +1,19 @@
 'use client'
-import { ChangeEvent, useCallback, useState } from 'react'
+import { ChangeEvent, useCallback, useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Field, Flex, Text, Separator } from '@chakra-ui/react'
 import { PriorityLabelForm } from '../priorityLabel/priority-label-form'
-import { FormLabelEnum, PriorityEnum, priorityLabelTab } from '@/constants'
 import { FormLabel } from './form-label'
 import { FormField } from './form-input'
 import { Calendar } from '../calendar'
 import { FormButton } from './form-button'
-import { useRouter } from 'next/navigation'
+import { TaskPreview } from '../task-preview'
+import { normalizeForSave } from '@/utils'
+import {
+  FORM_CONTAINER_STYLES,
+  FormLabelEnum,
+  priorityLabelTab,
+} from '@/constants'
 
 interface TaskFormProps {
   onSubmitForm: (formData: FormData) => Promise<void>
@@ -16,93 +22,105 @@ interface TaskFormProps {
 export const TaskForm = ({ onSubmitForm }: TaskFormProps) => {
   const router = useRouter()
 
+  const [activePriorityLabel, setActivePriorityLabel] = useState(
+    priorityLabelTab[1]
+  )
+  const [dateInput, setDateInput] = useState('')
+
   const [formInputs, setFormInputs] = useState({
     title: '',
     description: '',
-    priority: priorityLabelTab[1],
-    dueDate: '',
   })
 
-  const handleGetFormInputs = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  type FormInputEvent = HTMLInputElement | HTMLTextAreaElement
+
+  const handleInputChange = (e: ChangeEvent<FormInputEvent>) => {
     const { name, value } = e.target
     setFormInputs({ ...formInputs, [name]: value })
   }
 
-  const handlePriorityChange = (label: 'Alta' | 'Média' | 'Baixa') => {
-    setFormInputs({ ...formInputs, priority: label })
-  }
-
   const handleDateChange = useCallback((date: string) => {
-    setFormInputs((prev) => ({ ...prev, dueDate: date }))
+    setDateInput(date)
   }, [])
 
   const handleSubmit = async (formData: FormData) => {
-    formData.append('priority', formInputs.priority) // adiciona um append ao form e captura o valor do label de prioridade
+    formData.append('priority', activePriorityLabel) // adiciona um append ao form e captura o valor do label de prioridade
     await onSubmitForm(formData)
     router.back()
   }
 
+  const dataTaskPreview = useMemo(
+    () => ({
+      title: formInputs.title,
+      description: formInputs.description,
+      priority: normalizeForSave(activePriorityLabel) as Priority,
+      timestamp: dateInput,
+    }),
+    [formInputs.title, formInputs.description, activePriorityLabel, dateInput]
+  )
+
   return (
-    <form action={handleSubmit}>
-      {/* Titulo */}
-      <Field.Root>
-        <FormLabel fieldType={FormLabelEnum.TITLE} />
-        <FormField
-          placeholder="Digite o título da tarefa..."
-          value={formInputs.title}
-          setValue={handleGetFormInputs}
-        />
-      </Field.Root>
-
-      {/* Descrição */}
-      <Field.Root marginTop="24px">
-        <FormLabel fieldType={FormLabelEnum.DESCRIPTION} />
-        <FormField
-          value={formInputs.description}
-          setValue={handleGetFormInputs}
-          as="textarea"
-          placeholder="Adicione uma descrição detalhada..."
-          height="180px"
-        />
-        <Text color="gray400" fontSize="12px">
-          {formInputs.description.length} caracteres
-        </Text>
-        {/* TODO: deixar dinâmico */}
-      </Field.Root>
-
-      <Flex m="24px 0" gap={6}>
-        {/* Prioridade */}
-        <Flex flex={1} flexDirection="column">
-          <FormLabel fieldType={FormLabelEnum.PRIORITY} />
-
-          {priorityLabelTab.map((label) => (
-            <PriorityLabelForm
-              key={label}
-              name={label}
-              isActive={formInputs.priority === label}
-              onClick={() => handlePriorityChange(label)}
+    <>
+      <div style={FORM_CONTAINER_STYLES}>
+        <form
+          action={handleSubmit}
+          aria-label="Formulário de criação de tarefa"
+        >
+          {/* Titulo */}
+          <Field.Root>
+            <FormLabel fieldType={FormLabelEnum.TITLE} />
+            <FormField
+              placeholder="Digite o título da tarefa..."
+              value={formInputs.title}
+              setValue={handleInputChange}
             />
-          ))}
-        </Flex>
+          </Field.Root>
+          {/* Descrição */}
+          <Field.Root marginTop="24px">
+            <FormLabel fieldType={FormLabelEnum.DESCRIPTION} />
+            <FormField
+              value={formInputs.description}
+              setValue={handleInputChange}
+              as="textarea"
+              placeholder="Adicione uma descrição detalhada..."
+              height="180px"
+            />
+            <Text color="gray400" fontSize="12px">
+              {formInputs.description.length} caracteres
+            </Text>
+            {/* TODO: deixar dinâmico */}
+          </Field.Root>
+          <Flex m="24px 0" gap={6}>
+            {/* Prioridade */}
+            <Flex flex={1} flexDirection="column">
+              <FormLabel fieldType={FormLabelEnum.PRIORITY} />
+              {priorityLabelTab.map((label) => (
+                <PriorityLabelForm
+                  key={label}
+                  name={label}
+                  isActive={activePriorityLabel === label}
+                  onClick={() => setActivePriorityLabel(label)}
+                />
+              ))}
+            </Flex>
+            {/* Data Vencimento */}
+            <Flex flex={1} flexDirection="column">
+              <FormLabel fieldType={FormLabelEnum.DUE_DATE} />
+              <Calendar onDateChange={handleDateChange} />
+            </Flex>
+          </Flex>
+          <Flex flexDir="column" mb="1.5rem" alignItems="center">
+            <FormButton />
+          </Flex>
+          <Separator borderColor="gray.100" opacity={1} />
+          <Text color="gray400" fontSize="14px" textAlign="center" pt="24px">
+            💡 Dica: Adicione uma descrição detalhada para não esquecer nenhum
+            detalhe importante!
+          </Text>
+        </form>
+      </div>
 
-        {/* Data Vencimento */}
-        <Flex flex={1} flexDirection="column">
-          <FormLabel fieldType={FormLabelEnum.DUE_DATE} />
-          <Calendar onDateChange={handleDateChange} />
-        </Flex>
-      </Flex>
-
-      <Flex flexDir="column" mb="1.5rem" alignItems="center">
-        <FormButton />
-      </Flex>
-      <Separator borderColor="gray.100" opacity={1} />
-
-      <Text color="gray400" fontSize="14px" textAlign="center" pt="24px">
-        💡 Dica: Adicione uma descrição detalhada para não esquecer nenhum
-        detalhe importante!
-      </Text>
-    </form>
+      <TaskPreview task={dataTaskPreview} />
+    </>
   )
 }
