@@ -6,6 +6,7 @@ type TaskResponse = {
   description: string
   completed: boolean
   createdAt: string
+  dueDate: string
   priority: Priority
   userId: number
 }[]
