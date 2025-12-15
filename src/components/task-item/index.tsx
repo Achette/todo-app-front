@@ -1,8 +1,7 @@
 'use client'
 import { useTransition } from 'react'
 import { Checkbox, Flex, HStack, Text } from '@chakra-ui/react'
-import { PriorityLabel } from '../priorityLabel'
-import { DateFormatter } from '../date'
+import { DateAndPriority } from '../date'
 import { IconButton } from '../icon-button'
 import { toggleTask } from './toggleTask'
 
@@ -12,6 +11,7 @@ export interface TaskProps {
   description: string
   completed: boolean
   createdAt: string
+  dueDate: string
   priority: Priority
   userId: number
 }
@@ -70,7 +70,7 @@ export const TaskItem = ({ task }: TaskItemProps) => {
       </Checkbox.Root>
 
       <HStack width="100%" justifyContent="space-between">
-        <Flex flexDirection="column">
+        <Flex flexDirection="column" width="100%">
           <Text
             color="gray800"
             fontWeight={700}
@@ -90,9 +90,13 @@ export const TaskItem = ({ task }: TaskItemProps) => {
             {task.description}
           </Text>
 
-          <Flex gap="12px">
-            <DateFormatter timestamp={task.createdAt} />
-            <PriorityLabel priority={task.priority} />
+          <Flex gap="12px" w="100%">
+            <DateAndPriority
+              timestamp={task.createdAt}
+              dueDate={task.dueDate}
+              priority={task.priority}
+              completed={task.completed}
+            />
           </Flex>
         </Flex>
 
