@@ -1,5 +1,5 @@
 import { Box, Text } from '@chakra-ui/react'
-import { Container, Dashboard, Header } from '@/components'
+import { Dashboard, Header } from '@/components'
 import { getAllTasks } from '@/services'
 import { filterTasks } from '@/utils'
 
