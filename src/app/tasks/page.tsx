@@ -1,5 +1,5 @@
-import { Box } from '@chakra-ui/react'
-import { Dashboard, Header } from '@/components'
+import { Box, Text } from '@chakra-ui/react'
+import { Container, Dashboard, Header } from '@/components'
 import { getAllTasks } from '@/services'
 import { filterTasks } from '@/utils'
 
@@ -24,6 +24,10 @@ const TaskDashboard = async () => {
       />
 
       <Dashboard tasks={tasks} />
+
+      <Text color="gray400" textAlign="center" marginTop="-0.5rem">
+        {doneTasks.length} de {tasks.length} tarefas concluídas
+      </Text>
     </Box>
   )
 }
