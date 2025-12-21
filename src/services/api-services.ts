@@ -2,8 +2,14 @@ import { HttpClient } from './httpClient'
 
 const url = process.env.BASE_URL
 
-export const getAllTasks = async (): Promise<TaskResponse> => {
+export const getAllTasks = async (): Promise<TaskResponse[]> => {
   const endpoint = `${url}/tasks`
+
+  return HttpClient.request<TaskResponse[]>(endpoint, { method: 'GET' })
+}
+
+export const getTaskById = async (id: number): Promise<TaskResponse> => {
+  const endpoint = `${url}/tasks/${id}`
 
   return HttpClient.request<TaskResponse>(endpoint, { method: 'GET' })
 }
@@ -26,7 +32,7 @@ export const createNewTask = async (
       description,
       priority,
       createdAt: createdAt,
-      dueDate: dueDate
+      dueDate: dueDate,
     }),
   })
 }
@@ -37,5 +43,17 @@ export const toggleTaskCompletion = async (id: number, completed: boolean) => {
   return HttpClient.request<TaskResponse>(endpoint, {
     method: 'PATCH',
     body: JSON.stringify({ completed: !completed, userId: 5 }),
+  })
+}
+
+export const updateTask = async (
+  id: number,
+  updatedTask: Partial<TaskProps>
+) => {
+  const endpoint = `${url}/tasks/${id}`
+
+  return HttpClient.request<TaskResponse>(endpoint, {
+    method: 'PATCH',
+    body: JSON.stringify({ ...updatedTask, userId: 5 }),
   })
 }
