@@ -15,21 +15,46 @@ import {
   priorityLabelTab,
 } from '@/constants'
 
-interface TaskFormProps {
-  onSubmitForm: (formData: FormData) => Promise<void>
-}
+type TaskFormProps =
+  | {
+      mode: 'create'
+      onSubmitForm: (formData: FormData) => Promise<void>
+      taskData?: never
+      onUpdateSubmitForm?: never
+    }
+  | {
+      mode: 'edit'
+      onUpdateSubmitForm: (id: number, formData: FormData) => Promise<void>
+      taskData: TaskProps
+      onSubmitForm?: never
+    }
 
-export const TaskForm = ({ onSubmitForm }: TaskFormProps) => {
+export const TaskForm = ({
+  mode,
+  onSubmitForm,
+  onUpdateSubmitForm,
+  taskData,
+}: TaskFormProps) => {
   const router = useRouter()
 
-  const [activePriorityLabel, setActivePriorityLabel] = useState(
-    priorityLabelTab[1]
-  )
+  const isEditMode = mode === 'edit'
+
+  const [activePriorityLabel, setActivePriorityLabel] = useState(() => {
+    if (!isEditMode) {
+      return priorityLabelTab[1]
+    }
+
+    const matchingLabel = priorityLabelTab.find(
+      (label) => normalizeForSave(label) === taskData.priority
+    )
+
+    return matchingLabel ?? priorityLabelTab[1]
+  })
   const [dateInput, setDateInput] = useState('')
 
   const [formInputs, setFormInputs] = useState({
-    title: '',
-    description: '',
+    title: !isEditMode ? '' : taskData.title,
+    description: !isEditMode ? '' : taskData.description,
   })
 
   type FormInputEvent = HTMLInputElement | HTMLTextAreaElement
@@ -45,7 +70,12 @@ export const TaskForm = ({ onSubmitForm }: TaskFormProps) => {
 
   const handleSubmit = async (formData: FormData) => {
     formData.append('priority', activePriorityLabel) // adiciona um append ao form e captura o valor do label de prioridade
-    await onSubmitForm(formData)
+
+    if (isEditMode) {
+      await onUpdateSubmitForm(taskData.id, formData)
+    } else {
+      await onSubmitForm(formData)
+    }
     router.back()
   }
 
