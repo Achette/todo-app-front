@@ -12,6 +12,7 @@ export const createNewTask = async (
   title: string,
   description: string,
   priority: string,
+  createdAt: string,
   dueDate: string
 ): Promise<TaskResponse> => {
   const endpoint = `${url}/tasks`
@@ -24,7 +25,8 @@ export const createNewTask = async (
       title,
       description,
       priority,
-      createdAt: dueDate,
+      createdAt: createdAt,
+      dueDate: dueDate
     }),
   })
 }
