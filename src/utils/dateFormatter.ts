@@ -46,13 +46,13 @@ export const getDaysLabel = (days: number) => {
     },
     {
       condition: days <= 3,
-      label: `${days} dias`,
+      label: `Vence em ${days} dias`,
       color: 'yellow600',
       bg: 'bgYellow50',
     },
     {
       condition: days <= 7,
-      label: `${days} dias`,
+      label: `Vence em ${days} dias`,
       color: 'blue600',
       bg: 'bgBlue50',
     },
@@ -68,8 +68,8 @@ export const getDaysLabel = (days: number) => {
   }
 
   return {
-    label: `${days} dias`,
-    color: 'gray600',
-    bg: 'bgGray50',
+    label: '',
+    color: '',
+    bg: '',
   }
 }
