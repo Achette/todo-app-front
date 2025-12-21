@@ -24,14 +24,8 @@ export const DateAndPriority = ({
   const { label, color, bg } = getDaysLabel(diffDays)
 
   return (
-    <Flex w="100%" justifyContent="space-between">
-      <Flex
-        as="p"
-        alignItems="center"
-        gap="4px"
-        color="gray400"
-        fontSize="12px"
-      >
+    <Flex w="100%" h="22px" justifyContent="space-between">
+      <Flex alignItems="center" gap="4px" color="gray400" fontSize="12px">
         <Box
           as="span"
           display="inline-block"
@@ -49,7 +43,7 @@ export const DateAndPriority = ({
       </Flex>
 
       {!completed ? (
-        <Box bg={bg} p="6px 12px" borderRadius="8px">
+        <Box bg={bg} p="2px 12px" borderRadius="8px">
           <Text color={color} fontSize="12px" fontWeight={600}>
             {label}
           </Text>
