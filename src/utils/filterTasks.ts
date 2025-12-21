@@ -1,7 +1,7 @@
-export const filterTasks = (tasks?: TaskResponse) => {
+export const filterTasks = (tasks?: TaskResponse[]) => {
   const initialValue = {
-    activeTasks: [] as TaskResponse,
-    doneTasks: [] as TaskResponse,
+    activeTasks: [] as TaskResponse[],
+    doneTasks: [] as TaskResponse[],
   }
 
   if (!tasks) return initialValue

@@ -4,7 +4,7 @@ import { getAllTasks } from '@/services'
 import { filterTasks } from '@/utils'
 
 const TaskDashboard = async () => {
-  let tasks: TaskResponse
+  let tasks: TaskResponse[]
 
   try {
     tasks = await getAllTasks()

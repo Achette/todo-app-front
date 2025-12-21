@@ -9,4 +9,13 @@ type TaskResponse = {
   dueDate: string
   priority: Priority
   userId: number
-}[]
+}
+
+interface TaskProps {
+  id: number
+  title: string
+  description: string
+  priority: string
+  createdAt: string
+  dueDate: string
+}

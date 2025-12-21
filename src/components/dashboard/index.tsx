@@ -7,7 +7,7 @@ import { TaskItem } from '../task-item'
 import { Container } from '../container'
 
 interface DashTasks {
-  tasks: TaskResponse
+  tasks: TaskResponse[]
 }
 
 export const Dashboard = ({ tasks: initialTasks }: DashTasks) => {
