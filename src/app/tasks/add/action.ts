@@ -13,7 +13,15 @@ export async function handleSubmitForm(formData: FormData) {
   const date = formData.get('dueDate') as string
   const dueDate = new Date(date + 'T00:00:00').toISOString()
 
-  await createNewTask(title, description, normalizedPriority, dueDate)
+  const createdAd = new Date().toISOString()
+
+  await createNewTask(
+    title,
+    description,
+    normalizedPriority,
+    createdAd,
+    dueDate
+  )
 
   revalidatePath('/tasks')
 }
