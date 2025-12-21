@@ -7,7 +7,7 @@ const AddTask = async () => {
     <>
       <Header type={HeaderTypeEnum.ADD} />
       <Container>
-        <TaskForm onSubmitForm={handleSubmitForm} />
+        <TaskForm mode="create" onSubmitForm={handleSubmitForm} />
       </Container>
     </>
   )
