@@ -8,7 +8,7 @@ const TaskDashboard = async () => {
 
   try {
     tasks = await getAllTasks()
-  } catch (error: any) {
+  } catch (error: unknown) {
     tasks = []
     const errorMessage =
       error instanceof Error ? error.message : 'Erro desconhecido'
