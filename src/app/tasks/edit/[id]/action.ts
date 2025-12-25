@@ -1,7 +1,8 @@
 'use server'
+import { updateTag } from 'next/cache'
+import { redirect } from 'next/navigation'
 import { updateTask } from '@/services'
 import { getFormData } from '@/utils'
-import { redirect } from 'next/navigation'
 
 export async function handleUpdateForm(id: number, formData: FormData) {
   const { title, description, normalizedPriority, createdAt, dueDate } =
@@ -16,6 +17,8 @@ export async function handleUpdateForm(id: number, formData: FormData) {
   }
 
   await updateTask(id, updatedFields)
+
+  updateTag('tasks')
 
   redirect('/tasks')
 }

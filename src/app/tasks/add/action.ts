@@ -1,7 +1,8 @@
 'use server'
+import { updateTag } from 'next/cache'
+import { redirect } from 'next/navigation'
 import { createNewTask } from '@/services'
 import { getFormData } from '@/utils'
-import { redirect } from 'next/navigation'
 
 export async function handleSubmitForm(formData: FormData) {
   const { title, description, normalizedPriority, createdAt, dueDate } =
@@ -14,6 +15,8 @@ export async function handleSubmitForm(formData: FormData) {
     createdAt,
     dueDate
   )
+
+  updateTag('tasks')
 
   redirect('/tasks')
 }
