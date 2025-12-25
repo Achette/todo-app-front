@@ -1,6 +1,5 @@
 import { Link as ChackraLink } from '@chakra-ui/react'
-import { ReactElement } from 'react'
-import { LuPlus, LuSave } from 'react-icons/lu'
+import { LuPlus } from 'react-icons/lu'
 
 interface ButtonProps {
   isVisible?: boolean
