@@ -5,7 +5,10 @@ const url = process.env.BASE_URL
 export const getAllTasks = async (): Promise<TaskResponse[]> => {
   const endpoint = `${url}/tasks`
 
-  return HttpClient.request<TaskResponse[]>(endpoint, { method: 'GET' })
+  return HttpClient.request<TaskResponse[]>(endpoint, {
+    method: 'GET',
+    next: { tags: ['tasks'] },
+  })
 }
 
 export const getTaskById = async (id: number): Promise<TaskResponse> => {
