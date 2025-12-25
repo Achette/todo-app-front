@@ -1,8 +1,7 @@
 export class HttpClient {
-  private static readonly DEFAULT_TIMEOUT = 3000
+  private static readonly DEFAULT_TIMEOUT = 5000
   private static readonly COMMON_HEADERS = {
     Accept: 'application/json',
-    'Cache-Control': 'no-cache',
     'Content-Type': 'application/json',
   }
 
@@ -20,7 +19,6 @@ export class HttpClient {
         signal: controller.signal,
         headers: {
           ...this.COMMON_HEADERS,
-          ...options.headers,
         },
       })
 
