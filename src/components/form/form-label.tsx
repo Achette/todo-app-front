@@ -1,7 +1,8 @@
 import { ReactElement } from 'react'
 import { Flex, Text } from '@chakra-ui/react'
 import { LuType, LuAlignLeft, LuTag, LuCalendar } from 'react-icons/lu'
-import { FormLabelEnum } from '@/constants'
+import { FormLabelEnum, priorityLabelTab } from '@/constants'
+import { normalizeForSave } from '@/utils'
 
 interface FormLabelProps {
   fieldType: keyof typeof FormLabelEnum
@@ -28,4 +29,19 @@ export const FormLabel = ({ fieldType }: FormLabelProps) => {
       </Text>
     </Flex>
   )
+}
+
+export const matchFormLabel = (isEditMode: boolean, taskData?: TaskProps) => {
+  if (!isEditMode) {
+    return priorityLabelTab[1]
+  }
+
+  let matchingLabel
+  if (taskData) {
+    matchingLabel = priorityLabelTab.find(
+      (label) => normalizeForSave(label) === taskData.priority
+    )
+  }
+
+  return matchingLabel ?? priorityLabelTab[1]
 }
