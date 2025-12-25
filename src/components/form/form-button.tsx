@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react'
 import { LuSave } from 'react-icons/lu'
 
-export const FormButton = () => {
+export const FormButton = ({ isEditMode }: { isEditMode: boolean }) => {
   return (
     <Button
       type="submit"
@@ -24,7 +24,7 @@ export const FormButton = () => {
       }}
     >
       <LuSave />
-      Salvar
+      {!isEditMode ? 'Criar Tarefa' : 'Salvar'}
     </Button>
   )
 }
