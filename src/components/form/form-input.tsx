@@ -1,18 +1,16 @@
 import { Input, Textarea } from '@chakra-ui/react'
-import { ChangeEvent, Dispatch, SetStateAction } from 'react'
+import { UseFormRegisterReturn } from 'react-hook-form'
 
 interface FormFieldProps {
   placeholder: string
-  value: string
-  setValue: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  register: UseFormRegisterReturn
   as?: 'input' | 'textarea'
   height?: string
 }
 
 export const FormField = ({
   placeholder,
-  value,
-  setValue,
+  register,
   as = 'input',
   height,
 }: FormFieldProps) => {
@@ -36,12 +34,11 @@ export const FormField = ({
     return (
       <Textarea
         {...baseStyle}
+        {...register}
         height={height ?? '180px'}
         resize="none"
         placeholder={placeholder}
         name="description"
-        value={value}
-        onChange={(e) => setValue(e)}
       />
     )
   }
@@ -49,11 +46,10 @@ export const FormField = ({
   return (
     <Input
       {...baseStyle}
+      {...register}
       height={height ?? '64px'}
       placeholder={placeholder}
       name="title"
-      value={value}
-      onChange={(e) => setValue(e)}
     />
   )
 }
