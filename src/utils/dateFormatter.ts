@@ -73,3 +73,22 @@ export const getDaysLabel = (days: number) => {
     bg: '',
   }
 }
+
+export const ISODateFormatter = (isoDate?: string) => {
+  if (isoDate) {
+    const data = new Date(isoDate)
+    const formattedDate = data
+      .toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      })
+      .replace(' de ', ' de ')
+      .replace(/\sde\s(\d{4})/, ', $1')
+      .replace('.', '')
+
+    return formattedDate
+  }
+
+  return null
+}
