@@ -1,7 +1,7 @@
 'use server'
 import { createNewTask } from '@/services'
-import { revalidatePath } from 'next/cache'
 import { getFormData } from '@/utils'
+import { redirect } from 'next/navigation'
 
 export async function handleSubmitForm(formData: FormData) {
   const { title, description, normalizedPriority, createdAt, dueDate } =
@@ -15,5 +15,5 @@ export async function handleSubmitForm(formData: FormData) {
     dueDate
   )
 
-  revalidatePath('/tasks')
+  redirect('/tasks')
 }

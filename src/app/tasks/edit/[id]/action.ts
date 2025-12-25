@@ -1,7 +1,7 @@
 'use server'
-import { createNewTask, updateTask } from '@/services'
-import { revalidatePath } from 'next/cache'
+import { updateTask } from '@/services'
 import { getFormData } from '@/utils'
+import { redirect } from 'next/navigation'
 
 export async function handleUpdateForm(id: number, formData: FormData) {
   const { title, description, normalizedPriority, createdAt, dueDate } =
@@ -11,11 +11,11 @@ export async function handleUpdateForm(id: number, formData: FormData) {
     title,
     description,
     priority: normalizedPriority,
-    createdAt,
+    updatedAt: createdAt,
     dueDate,
   }
 
   await updateTask(id, updatedFields)
 
-  revalidatePath('/tasks')
+  redirect('/tasks')
 }
