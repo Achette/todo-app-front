@@ -7,6 +7,7 @@ type TaskResponse = {
   completed: boolean
   createdAt: string
   dueDate: string
+  updatedAt?: string
   priority: Priority
   userId: number
 }
@@ -18,4 +19,5 @@ interface TaskProps {
   priority: string
   createdAt: string
   dueDate: string
+  updatedAt?: string
 }
