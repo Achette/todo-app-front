@@ -29,6 +29,8 @@ export class HttpClient {
         throw new Error(`HTTP ${response.status}: ${errorBody}`)
       }
 
+      if(response.status === 204) return null as T
+
       return response.json()
     } catch (error) {
       clearTimeout(timeoutId)
