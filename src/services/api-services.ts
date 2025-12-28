@@ -60,3 +60,9 @@ export const updateTask = async (
     body: JSON.stringify({ ...updatedTask, userId: 5 }),
   })
 }
+
+export const deleteTaskById = (id: number) => {
+  const endpoint = `${url}/tasks/${id}`
+
+  return HttpClient.request<TaskResponse>(endpoint, { method: 'DELETE' })
+}
