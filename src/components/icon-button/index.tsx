@@ -1,7 +1,9 @@
+import { ReactElement } from 'react'
 import { Button } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
-import { ReactElement } from 'react'
 import { LuPencilLine, LuTrash2 } from 'react-icons/lu'
+import { deleteTask } from './action'
+import { FormElements } from '@/constants'
 
 interface ButtonProps {
   type: string
@@ -34,11 +36,14 @@ export const IconButton = ({ type, id }: ButtonProps) => {
     router.push(`/tasks/edit/${id}`)
   }
 
-  const handleDeleteTask = (id: number) => {
-    console.log('Cliquei para apagar a tarefa: ', id)
+  const handleDeleteTask = async (id: number) => {
+    await deleteTask(id)
   }
 
-  const selectedButtonAction = type === 'EDIT' ? handleEditTask : handleDeleteTask 
+  const selectedButtonAction =
+    type === FormElements.editMode.toLocaleUpperCase()
+      ? handleEditTask
+      : handleDeleteTask
 
   return (
     <Button

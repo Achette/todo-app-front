@@ -1,17 +1,20 @@
 import { Box, Button, Flex, Text } from '@chakra-ui/react'
 import { LuTrash2 } from 'react-icons/lu'
 import { ISODateFormatter } from '@/utils'
+import { deleteTask } from '../icon-button/action'
 
 interface FormTipsProps {
   isEditMode: boolean
   createdData?: string
   updatedData?: string
+  id?: number
 }
 
 export const FormTips = ({
   isEditMode,
   createdData,
   updatedData,
+  id,
 }: FormTipsProps) => {
   if (isEditMode) {
     const dateInfo = [
@@ -24,6 +27,13 @@ export const FormTips = ({
         date: ISODateFormatter(updatedData),
       },
     ]
+
+    const handleDeleteTask = async (id?: number) => {
+      if (id && isEditMode) await deleteTask(id, isEditMode)
+
+      return
+    }
+
     return (
       <Box>
         <Flex justifyContent="space-between" alignItems="center">
@@ -35,7 +45,7 @@ export const FormTips = ({
               </Text>
             ))}
           </Box>
-          <Button color="red.500">
+          <Button color="red.500" onClick={() => handleDeleteTask(id)}>
             <LuTrash2 /> Excluir tarefa
           </Button>
         </Flex>
