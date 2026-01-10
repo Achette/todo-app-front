@@ -5,6 +5,7 @@ import { tabsTitle } from '@/constants'
 import { Tabs } from '../tabs'
 import { TaskItem } from '../task-item'
 import { Container } from '../container'
+import { DeleteModal } from '../modal'
 
 interface DashTasks {
   tasks: TaskResponse[]
@@ -49,6 +50,7 @@ export const Dashboard = ({ tasks: initialTasks }: DashTasks) => {
           ))}
         </Box>
       </Box>
+      <DeleteModal.Viewport />
     </Container>
   )
 }
