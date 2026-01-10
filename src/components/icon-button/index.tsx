@@ -4,10 +4,12 @@ import { useRouter } from 'next/navigation'
 import { LuPencilLine, LuTrash2 } from 'react-icons/lu'
 import { deleteTask } from './action'
 import { FormElements } from '@/constants'
+import { DeleteModal } from '../modal'
 
 interface ButtonProps {
   type: string
   id: number
+  title?: string
 }
 
 const BUTTON_TYPE: Record<
@@ -28,7 +30,7 @@ const BUTTON_TYPE: Record<
   },
 }
 
-export const IconButton = ({ type, id }: ButtonProps) => {
+export const IconButton = ({ type, id, title }: ButtonProps) => {
   const { bg, color, icon, name } = BUTTON_TYPE[type]
   const router = useRouter()
 
@@ -37,7 +39,10 @@ export const IconButton = ({ type, id }: ButtonProps) => {
   }
 
   const handleDeleteTask = async (id: number) => {
-    await deleteTask(id)
+    DeleteModal.open('a', {
+      title: title ?? '',
+      onConfirm: () => deleteTask(id),
+    })
   }
 
   const selectedButtonAction =
@@ -46,21 +51,23 @@ export const IconButton = ({ type, id }: ButtonProps) => {
       : handleDeleteTask
 
   return (
-    <Button
-      onClick={() => selectedButtonAction(id)}
-      flexShrink={0}
-      color="gray.400"
-      transition="colors 0.2s"
-      padding="8px"
-      borderRadius="8px"
-      cursor="pointer"
-      _hover={{
-        color: color,
-        bg: bg,
-      }}
-      title={name}
-    >
-      {icon}
-    </Button>
+    <>
+      <Button
+        onClick={() => selectedButtonAction(id)}
+        flexShrink={0}
+        color="gray.400"
+        transition="colors 0.2s"
+        padding="8px"
+        borderRadius="8px"
+        cursor="pointer"
+        _hover={{
+          color: color,
+          bg: bg,
+        }}
+        title={name}
+      >
+        {icon}
+      </Button>
+    </>
   )
 }
