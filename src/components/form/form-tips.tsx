@@ -2,12 +2,14 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react'
 import { LuTrash2 } from 'react-icons/lu'
 import { ISODateFormatter } from '@/utils'
 import { deleteTask } from '../icon-button/action'
+import { DeleteModal } from '../modal'
 
 interface FormTipsProps {
   isEditMode: boolean
   createdData?: string
   updatedData?: string
   id?: number
+  title?: string
 }
 
 export const FormTips = ({
@@ -15,6 +17,7 @@ export const FormTips = ({
   createdData,
   updatedData,
   id,
+  title,
 }: FormTipsProps) => {
   if (isEditMode) {
     const dateInfo = [
@@ -29,7 +32,12 @@ export const FormTips = ({
     ]
 
     const handleDeleteTask = async (id?: number) => {
-      if (id && isEditMode) await deleteTask(id, isEditMode)
+      if (id) {
+        DeleteModal.open('a', {
+          title: title ?? 'Tarefa não tem um título',
+          onConfirm: () => deleteTask(id, isEditMode),
+        })
+      }
 
       return
     }
