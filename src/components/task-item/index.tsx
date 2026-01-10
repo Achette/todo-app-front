@@ -103,7 +103,7 @@ export const TaskItem = ({ task }: TaskItemProps) => {
         <Flex color="gray400" fontSize="16px" gap="4px">
           {/* TODO: melhorar essa props -- evitar magic strings */}
           <IconButton type="EDIT" id={task.id} />
-          <IconButton type="DELETE" id={task.id} />
+          <IconButton type="DELETE" id={task.id} title={task.title} />
         </Flex>
       </HStack>
     </Flex>
