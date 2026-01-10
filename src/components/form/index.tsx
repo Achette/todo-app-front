@@ -16,6 +16,7 @@ import {
   FormLabelEnum,
   priorityLabelTab,
 } from '@/constants'
+import { DeleteModal } from '../modal'
 
 type TaskFormProps =
   | {
@@ -140,6 +141,7 @@ export const TaskForm = ({
           </Field.Root>
 
           <Flex m="24px 0" gap={6}>
+            
             {/* Prioridade */}
             <Flex flex={1} flexDirection="column">
               <FormLabel fieldType={FormLabelEnum.PRIORITY} />
@@ -171,11 +173,13 @@ export const TaskForm = ({
             createdData={taskData?.createdAt}
             updatedData={taskData?.updatedAt}
             id={taskData?.id}
+            title={taskData?.title}
           />
         </form>
       </div>
 
       <TaskPreview task={dataTaskPreview} />
+      <DeleteModal.Viewport />
     </>
   )
 }
