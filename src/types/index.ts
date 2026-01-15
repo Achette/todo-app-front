@@ -21,3 +21,9 @@ interface TaskProps {
   dueDate: string
   updatedAt?: string
 }
+
+interface ServerActionResult {
+  success: boolean
+  title?: string
+  error?: string
+}
