@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState, useTransition } from 'react'
 import { Field, Flex, Text, Separator } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { PriorityLabelForm } from '../priorityLabel/priority-label-form'
@@ -17,11 +17,13 @@ import {
   priorityLabelTab,
 } from '@/constants'
 import { DeleteModal } from '../modal'
+import { toaster } from '../ui/toaster'
+import { useRouter } from 'next/navigation'
 
 type TaskFormProps =
   | {
       mode: 'create'
-      onSubmitForm: (formData: FormData) => Promise<void>
+      onSubmitForm: (formData: FormData) => Promise<ServerActionResult>
       taskData?: never
       onUpdateSubmitForm?: never
     }
@@ -44,6 +46,7 @@ export const TaskForm = ({
   taskData,
 }: TaskFormProps) => {
   const isEditMode = mode === FormElements.editMode
+  const router = useRouter()
 
   const {
     register,
@@ -81,8 +84,32 @@ export const TaskForm = ({
 
     if (isEditMode) {
       await onUpdateSubmitForm(taskData.id, formData)
+      toaster.create({
+        title: 'Tarefa salva com sucesso!',
+        description: titleValue,
+        type: 'success',
+        duration: 5000,
+      })
+      router.push('/tasks')
     } else {
-      await onSubmitForm(formData)
+      const result = await onSubmitForm(formData)
+
+      if (result.success) {
+        toaster.create({
+          title: 'Tarefa criada com sucesso!',
+          description: result.title,
+          type: 'success',
+          duration: 5000,
+        })
+        router.push('/tasks')
+      } else {
+        toaster.create({
+          title: 'Erro ao criar tarefa',
+          description: result.error,
+          type: 'error',
+          duration: 5000,
+        })
+      }
     }
   }
 
@@ -141,7 +168,6 @@ export const TaskForm = ({
           </Field.Root>
 
           <Flex m="24px 0" gap={6}>
-            
             {/* Prioridade */}
             <Flex flex={1} flexDirection="column">
               <FormLabel fieldType={FormLabelEnum.PRIORITY} />
