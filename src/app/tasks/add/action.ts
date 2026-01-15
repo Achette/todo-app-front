@@ -1,22 +1,28 @@
 'use server'
-import { updateTag } from 'next/cache'
+import { updateTag, revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createNewTask } from '@/services'
 import { getFormData } from '@/utils'
 
-export async function handleSubmitForm(formData: FormData) {
-  const { title, description, normalizedPriority, createdAt, dueDate } =
-    getFormData(formData)
+export async function handleSubmitForm(
+  formData: FormData
+): Promise<ServerActionResult> {
+  try {
+    const { title, description, normalizedPriority, createdAt, dueDate } =
+      getFormData(formData)
 
-  await createNewTask(
-    title,
-    description,
-    normalizedPriority,
-    createdAt,
-    dueDate
-  )
+    await createNewTask(
+      title,
+      description,
+      normalizedPriority,
+      createdAt,
+      dueDate
+    )
 
-  updateTag('tasks')
+    revalidatePath('/tasks') // Garante que a lista seja atualizada
 
-  redirect('/tasks')
+    return { success: true, title }
+  } catch (error) {
+    return { success: false, error: 'Erro ao criar tarefa' }
+  }
 }
