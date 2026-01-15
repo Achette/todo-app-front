@@ -20,5 +20,9 @@ export async function handleUpdateForm(id: number, formData: FormData) {
 
   updateTag('tasks')
 
-  redirect('/tasks')
+  /* 
+    Para notificação do Toast, o redirect deve ser feito pelo client
+    Remover comentário caso queira deixar a server action gerenciar o redirect, mas toast nao será exibido
+  */
+ // redirect('/tasks') 
 }
