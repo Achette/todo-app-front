@@ -8,6 +8,7 @@ export const getAllTasks = async (): Promise<TaskResponse[]> => {
   return HttpClient.request<TaskResponse[]>(endpoint, {
     method: 'GET',
     next: { tags: ['tasks'] },
+    cache: 'no-store'
   })
 }
 
