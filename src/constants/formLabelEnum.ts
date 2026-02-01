@@ -4,3 +4,8 @@ export const FormLabelEnum = {
   PRIORITY: 'PRIORITY',
   DUE_DATE: 'DUE_DATE',
 } as const
+
+export const FormInputType = {
+  EMAIL: 'email',
+  PASSWORD: 'password',
+}

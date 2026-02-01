@@ -8,13 +8,7 @@ interface FormFieldProps {
   height?: string
 }
 
-export const FormField = ({
-  placeholder,
-  register,
-  as = 'input',
-  height,
-}: FormFieldProps) => {
-  const baseStyle = {
+export const baseStyle = {
     w: 'full',
     p: '16px 24px',
     borderWidth: '2px',
@@ -29,6 +23,14 @@ export const FormField = ({
     fontWeight: 'medium',
     fontSize: 'lg',
   }
+
+export const FormField = ({
+  placeholder,
+  register,
+  as = 'input',
+  height,
+}: FormFieldProps) => {
+  
 
   if (as === 'textarea') {
     return (

@@ -4,6 +4,7 @@ import { ResumeCard } from '../card'
 import { AddButton } from '../add-button'
 import { Container } from '../container'
 import { ArrowBack } from '../arrow-back'
+import { Descritive } from '../descritive-text'
 
 interface HeaderProps {
   counters?: { active: number; done: number }
@@ -31,19 +32,7 @@ export const Header = ({
           <Flex alignItems="center" gap="1rem">
             {type !== HeaderTypeEnum.DEFAULT ? <ArrowBack /> : null}
 
-            <Box>
-              <Text
-                fontSize="40px"
-                fontWeight={800}
-                bg="linear-gradient(90deg, #4f46e5, #9333ea)"
-                bgClip="text"
-              >
-                {title}
-              </Text>
-              <Text color="gray400" fontSize="18px" marginTop="-8px">
-                {description}
-              </Text>
-            </Box>
+            <Descritive type={type} />
           </Flex>
           {type === HeaderTypeEnum.DEFAULT ? (
             <Flex gap="20px">

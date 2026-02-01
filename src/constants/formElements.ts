@@ -1,3 +1,5 @@
+import { LuMail, LuLock } from 'react-icons/lu'
+
 export const FormElements = {
   editMode: 'edit',
   createMode: 'create',
@@ -12,4 +14,19 @@ export const FormElements = {
   descriptionErrorMessage: 'Descrição não pode ser menor que 10 caracteres',
   priority: 'priority',
   dueDate: 'dueDate',
+} as const
+
+export const FormElementsLogin = {
+  EMAIL: {
+    label: 'E-mail',
+    placeholder: 'seu@email.com',
+    inputType: 'email',
+    icon: LuMail,
+  },
+  PASSWORD: {
+    label: 'Senha',
+    placeholder: '••••••••',
+    inputType: 'password',
+    icon: LuLock,
+  },
 } as const
