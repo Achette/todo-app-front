@@ -19,6 +19,7 @@ const TaskDashboard = async () => {
   const hasTasks = tasks.length > 0
 
   const { activeTasks, doneTasks } = filterTasks(tasks)
+ 
 
   return (
     <Box height="100vh">
@@ -30,8 +31,10 @@ const TaskDashboard = async () => {
         <>
           <Dashboard tasks={tasks} />
 
-          <Text color="gray400" textAlign="center" marginTop="-0.5rem">
-            {doneTasks.length} de {tasks.length} tarefas concluídas
+          <Text color="gray400" textAlign="center" marginTop="-16px">
+            {activeTasks.length > 0 || doneTasks.length > 0
+              ? `${doneTasks.length} de ${tasks.length} tarefas concluídas`
+              : null}
           </Text>
         </>
       ) : (

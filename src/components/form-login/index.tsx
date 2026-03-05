@@ -38,6 +38,7 @@ export const FormLogin = () => {
       overflow="hidden"
       mt="32px"
       flexDir="column"
+      zIndex={100}
     >
       <Box bg="white" p="2rem 2rem 0 2rem">
         <Box mb="2rem">
@@ -95,6 +96,7 @@ export const FormLogin = () => {
       </Box>
 
       <Separator borderWidth="1px" borderColor="gray.200" />
+
       <Flex h="70px" justify="center" align="center" gap="8px" fontSize="14px">
         <Text color="gray400">Não tem uma conta?</Text>
         <ChackraLink

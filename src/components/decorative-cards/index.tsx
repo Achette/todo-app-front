@@ -8,9 +8,10 @@ export const DecorativeBackgroundCards = () => {
       overflow="hidden"
       pointerEvents="none"
       opacity={0.4}
+      zIndex={0}
     >
       <Box
-        position="absolute"
+        position="relative"
         top="80px"
         left="40px"
         w="288px"

@@ -76,7 +76,7 @@ const TaskBox = ({ children }: { children: ReactNode }) => {
     <Box
       className="task-scrollbar"
       marginTop="2rem"
-      maxH="calc(100vh - 316px)"
+      h="calc(100vh - 316px)"
       overflowY="auto"
     >
       {children}
