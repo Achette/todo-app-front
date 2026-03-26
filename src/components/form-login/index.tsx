@@ -8,8 +8,15 @@ import {
 } from '@chakra-ui/react'
 import { FormInputLogin } from './form-input-login'
 import { RememberMe } from './checkbox-login'
+import { CheckIcon } from '@/assets'
+import { Descritive } from '../descritive-text'
+import { HeaderTypeEnum } from '@/constants'
 
-export const FormLogin = () => {
+export const FormLogin = ({
+  elementsType,
+}: {
+  elementsType: keyof typeof HeaderTypeEnum
+}) => {
   const inputGroupStyle = {
     h: '3.5rem',
     p: '0 16px',
@@ -36,11 +43,17 @@ export const FormLogin = () => {
       boxShadow="4px 4px 8px rgba(0, 0, 0, 0.2)"
       border="4px solid gray.300"
       overflow="hidden"
-      mt="32px"
       flexDir="column"
       zIndex={100}
     >
-      <Box bg="white" p="2rem 2rem 0 2rem">
+      <Flex flexDir="column" alignItems="center" pt="1rem" mb="0.5rem">
+        <CheckIcon />
+        <Descritive type={elementsType} />
+      </Flex>
+
+      <Separator width="100%" borderWidth="1px" borderColor="gray.200" />
+
+      <Box bg="white" p="1.25rem 2rem 0 2rem">
         <Box mb="2rem">
           <Text
             color="gray800"

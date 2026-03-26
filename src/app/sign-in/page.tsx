@@ -1,9 +1,7 @@
-import { DecorativeBackgroundCards } from '@/components'
+import { GradientBackground } from '@/components'
 
 const SignIn = () => {
-  return (
-    <DecorativeBackgroundCards />
-  )
+  return <GradientBackground></GradientBackground>
 }
 
 export default SignIn

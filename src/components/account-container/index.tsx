@@ -1,42 +1,30 @@
-import { Flex } from '@chakra-ui/react'
 import React from 'react'
-import { DecorativeBackgroundCards } from '../decorative-cards'
-import { CheckIcon } from '@/assets'
-import { Descritive } from '../descritive-text'
-import { FormLogin } from '../form-login'
-import { HeaderTypeEnum } from '@/constants'
+import { Flex } from '@chakra-ui/react'
+import { GradientBackground } from '../animated-background'
 
 export const AccountContainer = ({
   children,
 }: {
   children: React.ReactElement
 }) => {
-  const type = HeaderTypeEnum.DEFAULT
-
   return (
-    <Flex
-      minH="100vh"
-      align="center"
-      justify="center"
-      p={6}
-      position="relative"
-      flexDir="column"
-    >
-      <DecorativeBackgroundCards />
-
+    <GradientBackground>
       <Flex
-        flexDir="column"
+        minH="100vh"
         align="center"
         justify="center"
-        gap="1rem"
-        zIndex={100}
+        position="relative"
+        flexDir="column"
       >
-        <CheckIcon />
-
-        <Descritive type={type} />
+        <Flex
+          flexDir="column"
+          align="center"
+          justify="center"
+          gap="1rem"
+          zIndex={100}
+        ></Flex>
+        {children}
       </Flex>
-
-      {children}
-    </Flex>
+    </GradientBackground>
   )
 }

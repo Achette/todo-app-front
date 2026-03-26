@@ -10,16 +10,16 @@ export const Descritive = ({ type }: DescritiveProps) => {
   return (
     <Box>
       <Text
-        fontSize="40px"
+        fontSize="28px"
         fontWeight={800}
         bg="linear-gradient(90deg, #4f46e5, #9333ea)"
         bgClip="text"
       >
         {title}
       </Text>
-      <Text color="gray400" fontSize="18px" marginTop="-8px">
+       <Text color="gray400" fontSize="12px" marginTop="-8px">
         {description}
-      </Text>
+      </Text> 
     </Box>
   )
 }

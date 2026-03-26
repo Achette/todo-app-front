@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Elms_Sans } from 'next/font/google'
 import { Provider } from '@/components/ui/provider'
-import './global.css'
 import { Toaster } from '@/components/ui/toaster'
+import './global.css'
 
 const elmsSans = Elms_Sans({
   style: ['normal', 'italic'],
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" suppressHydrationWarning={true}>
-      <body className={`${elmsSans.className} `}>
+      <body className={elmsSans.className}>
         <Provider>
           {children}
           <Toaster />
