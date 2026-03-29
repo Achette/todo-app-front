@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Box,
   Flex,
@@ -6,31 +8,36 @@ import {
   Button,
   Separator,
 } from '@chakra-ui/react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { FormInputLogin } from './form-input-login'
 import { RememberMe } from './checkbox-login'
-import { CheckIcon } from '@/assets'
 import { Descritive } from '../descritive-text'
-import { HeaderTypeEnum } from '@/constants'
+import { FormElementsLogin, HeaderTypeEnum } from '@/constants'
+import { handleSubmitLoginForm } from './action'
+
+export interface FormLoginInput {
+  email: string
+  password: string
+}
 
 export const FormLogin = ({
   elementsType,
 }: {
   elementsType: keyof typeof HeaderTypeEnum
 }) => {
-  const inputGroupStyle = {
-    h: '3.5rem',
-    p: '0 16px',
-    border: '2px solid',
-    borderColor: 'gray.200',
-    borderRadius: '12px',
-    transition: 'border-color 0.2s ease',
-    _focusWithin: { borderColor: 'indigo.600' },
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormLoginInput>()
 
-  const inputStyle = {
-    border: 'none',
-    color: 'gray.400',
-    _focus: { outline: 'none', boxShadow: 'none' },
+  const onSubmit: SubmitHandler<FormLoginInput> = async (data) => {
+    const formData = new FormData()
+
+    formData.append(FormElementsLogin.EMAIL.inputType, data.email)
+    formData.append(FormElementsLogin.PASSWORD.inputType, data.password)
+
+    handleSubmitLoginForm(formData)
   }
 
   return (
@@ -47,7 +54,6 @@ export const FormLogin = ({
       zIndex={100}
     >
       <Flex flexDir="column" alignItems="center" pt="1rem" mb="0.5rem">
-        <CheckIcon />
         <Descritive type={elementsType} />
       </Flex>
 
@@ -68,44 +74,44 @@ export const FormLogin = ({
           </Text>
         </Box>
 
-        <FormInputLogin type="EMAIL" />
-        <FormInputLogin type="PASSWORD" />
-
-        <Flex justify="space-between">
-          <RememberMe />
-
-          <ChackraLink
-            variant="plain"
-            fontSize="sm"
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormInputLogin type="EMAIL" register={register} errors={errors} />
+          <FormInputLogin type="PASSWORD" register={register} errors={errors} />
+          <Flex justify="space-between">
+            <RememberMe />
+            <ChackraLink
+              variant="plain"
+              fontSize="sm"
+              fontWeight="semibold"
+              color="indigo800"
+              textDecor="none"
+              transition="color 0.2s ease"
+              _hover={{
+                color: 'purple600',
+              }}
+            >
+              Esqueceu a senha?
+            </ChackraLink>
+          </Flex>
+          <Button
+            type="submit"
+            w="full"
+            h="56px"
+            bg="linear-gradient(to right, #4f46e5, #9333ea)"
+            color="white"
             fontWeight="semibold"
-            color="indigo800"
-            textDecor="none"
-            transition="color 0.2s ease"
+            py={4}
+            borderRadius="12px"
+            boxShadow="2px 2px 8px rgba(0, 0, 0, 0.2)"
+            transition="all 0.2s ease"
+            my="20px"
             _hover={{
-              color: 'purple600',
+              bg: 'linear-gradient(to right, #4338ca, #7e22ce)',
             }}
           >
-            Esqueceu a senha?
-          </ChackraLink>
-        </Flex>
-
-        <Button
-          w="full"
-          h="56px"
-          bg="linear-gradient(to right, #4f46e5, #9333ea)"
-          color="white"
-          fontWeight="semibold"
-          py={4}
-          borderRadius="12px"
-          boxShadow="2px 2px 8px rgba(0, 0, 0, 0.2)"
-          transition="all 0.2s ease"
-          my="20px"
-          _hover={{
-            bg: 'linear-gradient(to right, #4338ca, #7e22ce)',
-          }}
-        >
-          Entrar
-        </Button>
+            Entrar
+          </Button>
+        </form>
       </Box>
 
       <Separator borderWidth="1px" borderColor="gray.200" />

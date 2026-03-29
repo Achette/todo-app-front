@@ -20,7 +20,7 @@ const Default_Gradients = [
   'linear-gradient(135deg, #2d1b69 0%, #11998e 100%)',
 ];
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 export function GradientBackground({
   children,

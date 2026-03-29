@@ -22,11 +22,13 @@ export const FormElementsLogin = {
     placeholder: 'seu@email.com',
     inputType: 'email',
     icon: LuMail,
+    required: 'E-mail é obrigatório',
   },
   PASSWORD: {
     label: 'Senha',
     placeholder: '••••••••',
     inputType: 'password',
     icon: LuLock,
+    required: 'Senha é obrigatório',
   },
 } as const

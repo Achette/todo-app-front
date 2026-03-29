@@ -7,6 +7,7 @@ import './global.css'
 const elmsSans = Elms_Sans({
   style: ['normal', 'italic'],
   subsets: ['latin'],
+  fallback: ['system-ui', 'sans-serif'],
 })
 
 export const metadata: Metadata = {

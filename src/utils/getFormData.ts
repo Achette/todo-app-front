@@ -1,4 +1,4 @@
-import { FormElements } from '@/constants'
+import { FormElements, FormElementsLogin } from '@/constants'
 import { normalizeForSave } from './normalize'
 
 export const getFormData = (formData: FormData) => {
@@ -17,4 +17,11 @@ export const getFormData = (formData: FormData) => {
     : new Date(createdAtDate.setDate(createdAtDate.getDate() + 1)).toISOString()
 
   return { title, description, normalizedPriority, createdAt, dueDate }
+}
+
+export const getLoginFormData = (formData: FormData) => {
+  const email = formData.get(FormElementsLogin.EMAIL.inputType) as string
+  const password = formData.get(FormElementsLogin.PASSWORD.inputType) as string
+
+  return { email, password }
 }
