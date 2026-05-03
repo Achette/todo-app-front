@@ -27,3 +27,9 @@ interface ServerActionResult {
   title?: string
   error?: string
 }
+
+interface AuthLogin {
+  token: string
+  username: string
+  roles: string[]
+}
