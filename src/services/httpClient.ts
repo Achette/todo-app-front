@@ -8,18 +8,22 @@ export class HttpClient {
   static async request<T>(
     url: string,
     options: RequestInit,
-    timeout = this.DEFAULT_TIMEOUT
+    timeout = this.DEFAULT_TIMEOUT,
+    token?: string
   ): Promise<T> {
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), timeout)
+
+    const headers = {
+      ...this.COMMON_HEADERS,
+      ...(token && { Authorization: `Bearer ${token}` }),
+    }
 
     try {
       const response = await fetch(url, {
         ...options,
         signal: controller.signal,
-        headers: {
-          ...this.COMMON_HEADERS,
-        },
+        headers,
       })
 
       clearTimeout(timeoutId)
