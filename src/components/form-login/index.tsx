@@ -13,7 +13,9 @@ import { FormInputLogin } from './form-input-login'
 import { RememberMe } from './checkbox-login'
 import { Descritive } from '../descritive-text'
 import { FormElementsLogin, HeaderTypeEnum } from '@/constants'
-import { handleSubmitLoginForm } from './action'
+import { handleSubmitLoginForm, saveAuthTokenCookie } from './action'
+import { useRouter } from 'next/navigation'
+import { toaster } from '../ui/toaster'
 
 export interface FormLoginInput {
   email: string
@@ -31,18 +33,38 @@ export const FormLogin = ({
     formState: { errors },
   } = useForm<FormLoginInput>()
 
+  const router = useRouter()
+
   const onSubmit: SubmitHandler<FormLoginInput> = async (data) => {
     const formData = new FormData()
 
     formData.append(FormElementsLogin.EMAIL.inputType, data.email)
     formData.append(FormElementsLogin.PASSWORD.inputType, data.password)
 
-    handleSubmitLoginForm(formData)
+    const response = await handleSubmitLoginForm(formData)
+
+    if (!response.sucess && response.error) {
+      toaster.create({
+        title: `Usuário ou senha incorretos.`,
+        type: 'error',
+        duration: 4000,
+      })
+      return
+    }
+
+    toaster.create({
+      title: `Bem-vindo ${response.username}`,
+      type: 'success',
+      duration: 4000,
+    })
+
+    await saveAuthTokenCookie(response.token)
+    router.push('/tasks')
   }
 
   return (
     <Flex
-      maxWidth="444px"
+      maxWidth="500px"
       w="100%"
       h="auto"
       bg="gray.100"
