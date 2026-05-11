@@ -1,14 +1,10 @@
 'use server'
 
+import { getAuthToken } from '@/utils'
 import { HttpClient } from './httpClient'
 import { cookies } from 'next/headers'
 
 const url = process.env.BASE_URL
-
-const getAuthToken = async (): Promise<string | undefined> => {
-  const cookieStore = await cookies()
-  return cookieStore.get('authToken')?.value
-}
 
 export const getAllTasks = async (): Promise<TaskResponse[]> => {
   const endpoint = `${url}/tasks`

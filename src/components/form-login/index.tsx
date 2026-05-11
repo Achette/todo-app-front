@@ -58,7 +58,7 @@ export const FormLogin = ({
       duration: 4000,
     })
 
-    await saveAuthTokenCookie(response.token)
+  await saveAuthTokenCookie(response.token)
     router.push('/tasks')
   }
 
