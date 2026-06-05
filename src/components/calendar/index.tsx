@@ -1,5 +1,12 @@
-import { memo, useRef, useState } from 'react'
-import { Box, Text, Icon } from '@chakra-ui/react'
+import { memo, useState } from 'react'
+import {
+  Box,
+  Text,
+  DatePicker,
+  Portal,
+  parseDate,
+  DatePickerValueChangeDetails,
+} from '@chakra-ui/react'
 import { LuCalendar } from 'react-icons/lu'
 
 interface CalendarProps {
@@ -7,9 +14,7 @@ interface CalendarProps {
 }
 
 export const Calendar = memo(({ onDateChange }: CalendarProps) => {
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  const [date, setDate] = useState(() => {
+  const [date, setDate] = useState<string>(() => {
     const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
     return tomorrow.toISOString().split('T')[0]
@@ -20,16 +25,12 @@ export const Calendar = memo(({ onDateChange }: CalendarProps) => {
     return today.toISOString().split('T')[0]
   }
 
-  const handleIconClick = () => {
-    if (inputRef.current) {
-      inputRef.current.showPicker()
-    }
-  }
-
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = e.target.value
-    setDate(selectedDate)
-    onDateChange?.(selectedDate)
+  const handleDateChange = (details: DatePickerValueChangeDetails) => {
+    const dateValue = details.value[0] // já vem como YYYY-MM-DD
+    const formattedDate = convertDateArray(dateValue)
+    if (!formattedDate) return
+    setDate(formattedDate)
+    onDateChange?.(formattedDate)
   }
 
   const formatDate = (dateString: string) => {
@@ -37,6 +38,10 @@ export const Calendar = memo(({ onDateChange }: CalendarProps) => {
     const day = date.getDate()
     const month = date.toLocaleDateString('pt-BR', { month: 'short' })
     return `${day} de ${month}`
+  }
+
+  const convertDateArray = (dateValue: DatePicker.DateValue) => {
+    return `${dateValue.year}-${String(dateValue.month).padStart(2, '0')}-${String(dateValue.day).padStart(2, '0')}`
   }
 
   return (
@@ -56,34 +61,57 @@ export const Calendar = memo(({ onDateChange }: CalendarProps) => {
         alignItems="center"
         justifyContent="space-between"
         mb={4}
+        border="2px solid transparent"
+        _focusWithin={{ border: '2px solid', borderColor: 'indigo800' }}
       >
-        <input
-          ref={inputRef}
-          name="dueDate"
-          type="date"
-          min={getTodayDate()}
-          value={date}
-          onChange={handleDateChange}
-          style={{
-            border: 'none',
-            outline: 'none',
-            padding: 0,
-            fontWeight: '500',
-            fontSize: '18px',
-            color: '#1F2937',
-            fontFamily: 'inherit',
-            backgroundColor: 'transparent',
-            width: '100%',
-            cursor: 'pointer',
-          }}
-        />
-        <Icon
-          as={LuCalendar}
-          color="gray.400"
-          boxSize={5}
-          cursor="pointer"
-          onClick={handleIconClick}
-        />
+        <DatePicker.Root
+          locale="pt-BR"
+          value={[parseDate(date)]}
+          onValueChange={handleDateChange}
+          min={parseDate(getTodayDate())}
+        >
+          <DatePicker.Control>
+            <DatePicker.Input
+              name="dueDate"
+              style={{
+                border: 'none',
+                outline: 'none',
+                padding: 0,
+                fontWeight: '500',
+                fontSize: '18px',
+                color: '#1F2937',
+                fontFamily: 'inherit',
+                backgroundColor: 'transparent',
+                width: '100%',
+                cursor: 'pointer',
+              }}
+              _focusVisible={{ border: '2px solid red' }}
+            />
+            <DatePicker.IndicatorGroup>
+              <DatePicker.Trigger>
+                <LuCalendar />
+              </DatePicker.Trigger>
+            </DatePicker.IndicatorGroup>
+          </DatePicker.Control>
+          <Portal>
+            <DatePicker.Positioner>
+              <DatePicker.Content>
+                <DatePicker.View view="day">
+                  <DatePicker.Header />
+                  <DatePicker.DayTable />
+                </DatePicker.View>
+                <DatePicker.View view="month">
+                  <DatePicker.Header />
+                  <DatePicker.MonthTable />
+                </DatePicker.View>
+                <DatePicker.View view="year">
+                  <DatePicker.Header />
+                  <DatePicker.YearTable />
+                </DatePicker.View>
+              </DatePicker.Content>
+            </DatePicker.Positioner>
+          </Portal>
+        </DatePicker.Root>
       </Box>
 
       <Box textAlign="center">
