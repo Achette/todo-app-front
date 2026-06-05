@@ -1,4 +1,4 @@
-import { LuMail, LuLock } from 'react-icons/lu'
+import { LuMail, LuLock, LuUserCheck } from 'react-icons/lu'
 
 export const FormElements = {
   editMode: 'edit',
@@ -16,19 +16,68 @@ export const FormElements = {
   dueDate: 'dueDate',
 } as const
 
-export const FormElementsLogin = {
-  EMAIL: {
-    label: 'E-mail',
-    placeholder: 'seu@email.com',
-    inputType: 'email',
-    icon: LuMail,
-    required: 'E-mail é obrigatório',
+export const CommonFormText = {
+  LOGIN: {
+    heading: 'Bem-vindo de volta!',
+    slogan: 'Entre com sua conta para continuar',
+    accountTip: 'Não tem uma conta?',
+    redirectText: 'Cadastre-se',
+    redirect: '/register',
   },
-  PASSWORD: {
-    label: 'Senha',
-    placeholder: '••••••••',
-    inputType: 'password',
-    icon: LuLock,
-    required: 'Senha é obrigatório',
+  REGISTER: {
+    heading: 'Criar conta',
+    slogan: 'Começe sua jornada de organização hoje',
+    accountTip: 'Já tem uma conta?',
+    redirectText: 'Faça login',
+    redirect: '/',
+  },
+} as const
+
+export const FormContent = {
+  LOGIN: {
+    EMAIL: {
+      label: 'E-mail',
+      placeholder: 'seu@email.com',
+      inputType: 'email',
+      icon: LuMail,
+      required: 'E-mail é obrigatório',
+    },
+    PASSWORD: {
+      label: 'Senha',
+      placeholder: '••••••••',
+      inputType: 'password',
+      icon: LuLock,
+      required: 'Senha é obrigatório',
+    },
+  },
+  REGISTER: {
+    USERNAME: {
+      label: 'Usuário',
+      placeholder: 'nomeusuario',
+      inputType: 'username',
+      icon: LuUserCheck,
+      required: 'Usuário é obrigatório',
+    },
+    EMAIL: {
+      label: 'E-mail',
+      placeholder: 'seu@email.com',
+      inputType: 'email',
+      icon: LuMail,
+      required: 'E-mail é obrigatório',
+    },
+    PASSWORD: {
+      label: 'Senha',
+      placeholder: '••••••••',
+      inputType: 'password',
+      icon: LuLock,
+      required: 'Senha é obrigatória',
+    },
+    CONFIRM_PASSWORD: {
+      label: 'Confirmar Senha',
+      placeholder: '••••••••',
+      inputType: 'password',
+      icon: LuLock,
+      required: 'Confirmação de senha é obrigatória',
+    },
   },
 } as const

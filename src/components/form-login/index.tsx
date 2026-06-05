@@ -1,32 +1,20 @@
 'use client'
 
-import {
-  Box,
-  Flex,
-  Text,
-  Link as ChackraLink,
-  Button,
-  Separator,
-} from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { FormInputLogin } from './form-input-login'
-import { RememberMe } from './checkbox-login'
-import { Descritive } from '../descritive-text'
-import { FormElementsLogin, HeaderTypeEnum } from '@/constants'
+import { FormInput } from '../form-commons/form-input'
+import { FormContent } from '@/constants'
 import { handleSubmitLoginForm, saveAuthTokenCookie } from './action'
 import { useRouter } from 'next/navigation'
 import { toaster } from '../ui/toaster'
+import { FormCommon } from '../form-commons'
 
 export interface FormLoginInput {
   email: string
   password: string
 }
 
-export const FormLogin = ({
-  elementsType,
-}: {
-  elementsType: keyof typeof HeaderTypeEnum
-}) => {
+export const FormLogin = () => {
   const {
     register,
     handleSubmit,
@@ -38,12 +26,12 @@ export const FormLogin = ({
   const onSubmit: SubmitHandler<FormLoginInput> = async (data) => {
     const formData = new FormData()
 
-    formData.append(FormElementsLogin.EMAIL.inputType, data.email)
-    formData.append(FormElementsLogin.PASSWORD.inputType, data.password)
+    formData.append(FormContent.LOGIN.EMAIL.inputType, data.email)
+    formData.append(FormContent.LOGIN.PASSWORD.inputType, data.password)
 
     const response = await handleSubmitLoginForm(formData)
 
-    if (!response.sucess && response.error) {
+    if (!response.success && response.error) {
       toaster.create({
         title: `Usuário ou senha incorretos.`,
         type: 'error',
@@ -53,68 +41,32 @@ export const FormLogin = ({
     }
 
     toaster.create({
-      title: `Bem-vindo ${response.username}`,
+      title: `Bem-vindo ${response.name}`,
       type: 'success',
       duration: 4000,
     })
 
-  await saveAuthTokenCookie(response.token)
+    await saveAuthTokenCookie(response.token)
     router.push('/tasks')
   }
 
   return (
-    <Flex
-      maxWidth="500px"
-      w="100%"
-      h="auto"
-      bg="gray.100"
-      borderRadius="24px"
-      boxShadow="4px 4px 8px rgba(0, 0, 0, 0.2)"
-      border="4px solid gray.300"
-      overflow="hidden"
-      flexDir="column"
-      zIndex={100}
-    >
-      <Flex flexDir="column" alignItems="center" pt="1rem" mb="0.5rem">
-        <Descritive type={elementsType} />
-      </Flex>
+    <FormCommon type="LOGIN">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormInput
+          formType="LOGIN"
+          fieldName="EMAIL"
+          register={register}
+          errors={errors}
+        />
+        <FormInput
+          formType="LOGIN"
+          fieldName="PASSWORD"
+          register={register}
+          errors={errors}
+        />
 
-      <Separator width="100%" borderWidth="1px" borderColor="gray.200" />
-
-      <Box bg="white" p="1.25rem 2rem 0 2rem">
-        <Box mb="2rem">
-          <Text
-            color="gray800"
-            fontWeight={800}
-            fontSize="1.5rem"
-            textAlign="center"
-          >
-            Bem-vindo de volta!
-          </Text>
-          <Text color="gray400" textAlign="center">
-            Entre com sua conta para continuar
-          </Text>
-        </Box>
-
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormInputLogin type="EMAIL" register={register} errors={errors} />
-          <FormInputLogin type="PASSWORD" register={register} errors={errors} />
-          <Flex justify="space-between">
-            <RememberMe />
-            <ChackraLink
-              variant="plain"
-              fontSize="sm"
-              fontWeight="semibold"
-              color="indigo800"
-              textDecor="none"
-              transition="color 0.2s ease"
-              _hover={{
-                color: 'purple600',
-              }}
-            >
-              Esqueceu a senha?
-            </ChackraLink>
-          </Flex>
+        <Box p="0 3rem">
           <Button
             type="submit"
             w="full"
@@ -133,24 +85,8 @@ export const FormLogin = ({
           >
             Entrar
           </Button>
-        </form>
-      </Box>
-
-      <Separator borderWidth="1px" borderColor="gray.200" />
-
-      <Flex h="70px" justify="center" align="center" gap="8px" fontSize="14px">
-        <Text color="gray400">Não tem uma conta?</Text>
-        <ChackraLink
-          color="indigo800"
-          fontWeight={600}
-          textDecor="none"
-          _hover={{
-            color: 'purple600',
-          }}
-        >
-          Cadastre-se
-        </ChackraLink>
-      </Flex>
-    </Flex>
+        </Box>
+      </form>
+    </FormCommon>
   )
 }

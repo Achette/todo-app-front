@@ -21,7 +21,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-br" suppressHydrationWarning={true}>
+    <html
+      lang="pt-br"
+      suppressHydrationWarning={true}
+      data-scroll-behavior="smooth"
+    >
       <body className={elmsSans.className}>
         <Provider>
           {children}

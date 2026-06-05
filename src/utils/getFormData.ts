@@ -1,4 +1,4 @@
-import { FormElements, FormElementsLogin } from '@/constants'
+import { FormContent, FormElements } from '@/constants'
 import { normalizeForSave } from './normalize'
 
 export const getFormData = (formData: FormData) => {
@@ -20,8 +20,29 @@ export const getFormData = (formData: FormData) => {
 }
 
 export const getLoginFormData = (formData: FormData) => {
-  const email = formData.get(FormElementsLogin.EMAIL.inputType) as string
-  const password = formData.get(FormElementsLogin.PASSWORD.inputType) as string
+  const email = formData.get(FormContent.LOGIN.EMAIL.inputType) as string
+  const password = formData.get(FormContent.LOGIN.PASSWORD.inputType) as string
 
   return { email, password }
+}
+
+export const getRegisterFormData = (formData: FormData) => {
+  const username = formData.get(
+    FormContent.REGISTER.USERNAME.inputType
+  ) as string
+
+  const email = formData.get(FormContent.REGISTER.EMAIL.inputType) as string
+
+  const password = formData.get(
+    FormContent.REGISTER.PASSWORD.inputType
+  ) as string
+
+  const confirmPassword = formData.get(
+    FormContent.REGISTER.CONFIRM_PASSWORD.inputType
+  ) as string
+
+/*   const acceptTerms =
+    formData.get(FormContent.REGISTER.CONFIRM_PASSWORD.inputType) === 'on' */
+
+  return { username, email, password, confirmPassword }
 }

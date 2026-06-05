@@ -1,13 +1,15 @@
 import { AccountContainer } from '@/components'
 import { FormLogin } from '@/components/form-login'
-import { HeaderTypeEnum } from '@/constants'
+import { headers } from 'next/headers';
 
-export default function Home() {
-  const elementsType = HeaderTypeEnum.DEFAULT
+export default async function Home() {
+   const headersList = await headers();
+  const userAgent = headersList.get('user-agent') || 'Desconhecido';
 
+  console.log('userAgent', userAgent)
   return (
     <AccountContainer>
-      <FormLogin elementsType={elementsType} />
+      <FormLogin />
     </AccountContainer>
   )
 }

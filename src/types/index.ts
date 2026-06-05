@@ -33,3 +33,9 @@ interface AuthLogin {
   username: string
   roles: string[]
 }
+
+interface Register {
+  name: string
+  username: string
+  password: string
+}
