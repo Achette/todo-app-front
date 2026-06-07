@@ -53,7 +53,12 @@ export const FormTips = ({
               </Text>
             ))}
           </Box>
-          <Button color="red.500" onClick={() => handleDeleteTask(id)}>
+          <Button
+            color="red.500"
+            p="0 0.5rem"
+            _hover={{ bg: 'red.50' }}
+            onClick={() => handleDeleteTask(id)}
+          >
             <LuTrash2 /> Excluir tarefa
           </Button>
         </Flex>
