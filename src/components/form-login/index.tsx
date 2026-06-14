@@ -8,10 +8,12 @@ import { handleSubmitLoginForm, saveAuthTokenCookie } from './action'
 import { useRouter } from 'next/navigation'
 import { toaster } from '../ui/toaster'
 import { FormCommon } from '../form-commons'
+import { saveToSessionStorage } from '@/utils/sessionStorage'
 
 export interface FormLoginInput {
   email: string
   password: string
+  name: string
 }
 
 export const FormLogin = () => {
@@ -30,6 +32,12 @@ export const FormLogin = () => {
     formData.append(FormContent.LOGIN.PASSWORD.inputType, data.password)
 
     const response = await handleSubmitLoginForm(formData)
+    console.log('[Response]', response)
+
+    saveToSessionStorage('user', {
+      username: response.username,
+      name: response.name,
+    })
 
     if (!response.success && response.error) {
       toaster.create({
