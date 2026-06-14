@@ -1,35 +1,32 @@
-import { Link as ChackraLink } from '@chakra-ui/react'
-import { LuPlus } from 'react-icons/lu'
+import { Link as ChackraLink, Container } from '@chakra-ui/react'
+import { MdFormatListBulletedAdd } from "react-icons/md";
 
-interface ButtonProps {
-  isVisible?: boolean
-}
 
-export const AddButton = ({ isVisible }: ButtonProps) => {
-  if (!isVisible) return null
+
+export const AddButton = () => {
+
 
   return (
-    <ChackraLink
-      href="/tasks/add"
-      bg="linear-gradient(to right, #4f46e5, #9333ea)"
-      height="60px"
-      color="white200"
-      fontSize="20px"
-      padding="16px 24px"
-      borderRadius="xl"
-      fontWeight="500"
-      display="flex"
-      alignItems="center"
-      gap="8px"
-      boxShadow="sm"
-      transition="all 0.2s ease-in-out"
-      textDecoration="none"
-      _hover={{
-        bg: 'linear-gradient(to right, #4338ca, #7e22ce)',
-      }}
-    >
-      <LuPlus />
-      Criar Tarefa
-    </ChackraLink>
+    <Container display="flex" justifyContent="flex-end" position="absolute" bottom="50px" padding="0 24px" >
+      <ChackraLink
+        href="/tasks/add"
+        bg="linear-gradient(to right, #4f46e5, #9333ea)"
+        width="fit-content"
+        color="white200"
+        fontSize="20px"
+        padding="10px"
+        borderRadius="100px"
+        fontWeight="500"
+        boxShadow="sm"
+        transition="all 0.2s ease-in-out"
+        textDecoration="none"
+        title="Adicionar nova tarefa"
+        _hover={{
+          bg: 'linear-gradient(to right, #4338ca, #7e22ce)',
+        }}
+      >
+        <MdFormatListBulletedAdd size="32px" />
+      </ChackraLink>
+    </Container>
   )
 }
