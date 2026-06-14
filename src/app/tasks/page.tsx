@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
-import { Dashboard, Header } from '@/components'
+import { AddButton, Dashboard, Header } from '@/components'
 import { getAllTasks } from '@/services'
 import { filterTasks } from '@/utils'
 
@@ -19,13 +19,13 @@ const TaskDashboard = async () => {
   const hasTasks = tasks.length > 0
 
   const { activeTasks, doneTasks } = filterTasks(tasks)
- 
 
   return (
     <Box height="100vh">
       <Header
         counters={{ active: activeTasks.length, done: doneTasks.length }}
       />
+      <AddButton />
 
       {hasTasks ? (
         <>
