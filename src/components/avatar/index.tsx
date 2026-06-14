@@ -15,7 +15,7 @@ export const PersonalAvatar = () => {
   return (
     <HStack>
       <Avatar.Root size="xl" bg="linear-gradient(to right, #4f46e5, #9333ea)">
-        <Avatar.Fallback name="Tulio Bereta" />
+        <Avatar.Fallback name={user?.name ?? 'Usuário'} />
       </Avatar.Root>
       <Stack gap="0">
         <Text fontWeight="medium" color="gray800">
