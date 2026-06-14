@@ -13,7 +13,7 @@ export const Descritive = ({ type }: DescritiveProps) => {
       <Flex alignItems="center" gap="1rem">
         <CheckIcon />
         <Text
-          fontSize="32px"
+          fontSize="30px"
           fontWeight={800}
           bg="linear-gradient(90deg, #4f46e5, #9333ea)"
           bgClip="text"

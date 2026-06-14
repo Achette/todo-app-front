@@ -2,8 +2,7 @@ import { Text, VStack } from '@chakra-ui/react'
 
 interface ResumeCardProps {
   taskStatus: 'active' | 'done'
-  taskCount?: string | number,
-
+  taskCount?: string | number
 }
 
 const CARD_STYLE: Record<string, { bg: string; color: string; label: string }> =
@@ -27,8 +26,8 @@ export const ResumeCard = ({ taskStatus, taskCount }: ResumeCardProps) => {
       bgColor={bg}
       alignItems="center"
       justifyContent="center"
-      px="24px"
-      py="12px"
+      width="84px"
+      py="8px"
       borderRadius="12px"
     >
       <Text color={color} fontWeight={700} fontSize="24px" lineHeight="32px">
