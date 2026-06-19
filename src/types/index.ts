@@ -19,6 +19,7 @@ interface TaskProps {
   priority: string
   createdAt: string
   dueDate: string
+  completed: boolean
   updatedAt?: string
 }
 

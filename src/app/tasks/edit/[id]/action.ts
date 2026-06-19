@@ -4,7 +4,11 @@ import { updateTag } from 'next/cache'
 import { updateTask } from '@/services'
 import { getFormData } from '@/utils'
 
-export async function handleUpdateForm(id: number, formData: FormData) {
+export async function handleUpdateForm(
+  id: number,
+  formData: FormData,
+  taskCompleted: boolean
+) {
   const { title, description, normalizedPriority, createdAt, dueDate } =
     getFormData(formData)
 
@@ -13,6 +17,7 @@ export async function handleUpdateForm(id: number, formData: FormData) {
     description,
     priority: normalizedPriority,
     updatedAt: createdAt,
+    completed: taskCompleted ? !taskCompleted : taskCompleted,
     dueDate,
   }
 
@@ -24,5 +29,5 @@ export async function handleUpdateForm(id: number, formData: FormData) {
     Para notificação do Toast, o redirect deve ser feito pelo client
     Remover comentário caso queira deixar a server action gerenciar o redirect, mas toast nao será exibido
   */
- // redirect('/tasks') 
+  // redirect('/tasks')
 }

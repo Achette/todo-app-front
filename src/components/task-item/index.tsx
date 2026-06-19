@@ -45,11 +45,11 @@ export const TaskItem = ({ task }: TaskItemProps) => {
         checked={task.completed}
         variant="solid"
         colorPalette="green"
-        disabled={pending}
+        disabled={task.completed}
       >
         <Checkbox.HiddenInput />
         <Checkbox.Control
-          cursor="pointer"
+          cursor={task.completed ? 'not-allowed' : 'pointer'}
           flexShrink={0}
           width="24px"
           height="24px"
@@ -62,9 +62,11 @@ export const TaskItem = ({ task }: TaskItemProps) => {
               ? 'linear(to-r, green500, emerald500)'
               : 'transparent'
           }
-          onClick={() =>
-            startTransition(() => toggleTask(task.id, task.completed))
-          }
+          onClick={() => {
+            if (!task.completed) {
+              startTransition(() => toggleTask(task.id, task.completed))
+            }
+          }}
           opacity={pending ? 0.6 : 1}
         />
       </Checkbox.Root>

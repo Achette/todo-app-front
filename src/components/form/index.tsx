@@ -29,7 +29,7 @@ type TaskFormProps =
     }
   | {
       mode: 'edit'
-      onUpdateSubmitForm: (id: number, formData: FormData) => Promise<void>
+      onUpdateSubmitForm: (id: number, formData: FormData, taskComplete: boolean) => Promise<void>
       taskData: TaskProps
       onSubmitForm?: never
     }
@@ -83,7 +83,7 @@ export const TaskForm = ({
     formData.append(FormElements.dueDate, dateInput)
 
     if (isEditMode) {
-      await onUpdateSubmitForm(taskData.id, formData)
+      await onUpdateSubmitForm(taskData.id, formData, taskData.completed)
       toaster.create({
         title: 'Tarefa salva com sucesso!',
         description: titleValue,
