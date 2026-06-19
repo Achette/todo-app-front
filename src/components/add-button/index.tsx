@@ -24,6 +24,7 @@ export const AddButton = () => {
         _hover={{
           bg: 'linear-gradient(to right, #4338ca, #7e22ce)',
         }}
+        zIndex={100}
       >
         <MdFormatListBulletedAdd size="32px" />
       </ChackraLink>
