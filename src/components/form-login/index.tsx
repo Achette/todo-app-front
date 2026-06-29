@@ -51,23 +51,7 @@ export const FormLogin = () => {
 
     await saveAuthTokenCookie(response.access_token, response.expires_in)
 
-    const cookieSaved = document.cookie.includes('authToken')
-
-    if (cookieSaved) {
-      const loggedUser = await authService.getMe()
-
-      if (loggedUser) {
-        const { email, name } = loggedUser
-        saveToSessionStorage('loggedUser', { email, name })
-        router.push('/tasks')
-      }
-    } else {
-      toaster.create({
-        title: 'Não foi possível salvar a sessão. Tente novamente.',
-        type: 'error',
-        duration: 4000,
-      })
-    }
+    router.push('/tasks')
   }
 
   return (
