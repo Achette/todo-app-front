@@ -41,7 +41,6 @@ export const authService = {
     password: string
   ): Promise<Register> => {
     const endpoint = `${url}/users`
-    console.log('endpoint', endpoint)
 
     return HttpClient.request<Register>(endpoint, {
       headers: {
