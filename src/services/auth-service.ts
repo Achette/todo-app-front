@@ -53,6 +53,7 @@ export const authService = {
         name: username,
         email,
         password,
+        roles: ['ROLE_ADMIN'],
       }),
     })
   },
