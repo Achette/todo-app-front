@@ -51,7 +51,7 @@ export const FormLogin = () => {
 
     await saveAuthTokenCookie(response.access_token, response.expires_in)
 
-    const cookieSaved = document.cookie.includes('authToken=')
+    const cookieSaved = document.cookie.includes('authToken')
 
     if (cookieSaved) {
       const loggedUser = await authService.getMe()
