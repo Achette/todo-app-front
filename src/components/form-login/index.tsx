@@ -51,6 +51,13 @@ export const FormLogin = () => {
 
     await saveAuthTokenCookie(response.access_token, response.expires_in)
 
+    const loggedUser = await authService.getMe()
+
+    if (loggedUser) {
+      const { email, name } = loggedUser
+      saveToSessionStorage('loggedUser', { email, name })
+    }
+
     router.push('/tasks')
   }
 
