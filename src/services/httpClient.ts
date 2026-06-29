@@ -1,22 +1,16 @@
 export class HttpClient {
   private static readonly DEFAULT_TIMEOUT = 5000
-  private static readonly COMMON_HEADERS = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  }
 
   static async request<T>(
     url: string,
     options: RequestInit,
-    timeout = this.DEFAULT_TIMEOUT,
-    token?: string
+    timeout = this.DEFAULT_TIMEOUT
   ): Promise<T> {
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), timeout)
 
     const headers = {
-      ...this.COMMON_HEADERS,
-      ...(token && { Authorization: `Bearer ${token}` }),
+      ...options.headers,
     }
 
     try {

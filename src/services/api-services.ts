@@ -2,26 +2,38 @@
 
 import { getAuthToken } from '@/utils'
 import { HttpClient } from './httpClient'
-import { cookies } from 'next/headers'
 
 const url = process.env.BASE_URL
+const REQUEST_TIMEOUT = 5000
 
 export const getAllTasks = async (): Promise<TaskResponse[]> => {
   const endpoint = `${url}/tasks`
-  const token = await getAuthToken()
+  const headers = await buildHeaders()
 
-  return HttpClient.request<TaskResponse[]>(endpoint, {
-    method: 'GET',
-    next: { tags: ['tasks'] },
-    cache: 'no-store'
-  }, 5000, token)
+  return HttpClient.request<TaskResponse[]>(
+    endpoint,
+    {
+      headers,
+      method: 'GET',
+      next: { tags: ['tasks'] },
+      cache: 'no-store',
+    },
+    REQUEST_TIMEOUT
+  )
 }
 
 export const getTaskById = async (id: number): Promise<TaskResponse> => {
   const endpoint = `${url}/tasks/${id}`
-  const token = await getAuthToken()
+  const headers = await buildHeaders()
 
-  return HttpClient.request<TaskResponse>(endpoint, { method: 'GET' }, 5000, token)
+  return HttpClient.request<TaskResponse>(
+    endpoint,
+    {
+      headers,
+      method: 'GET',
+    },
+    REQUEST_TIMEOUT
+  )
 }
 
 export const createNewTask = async (
@@ -32,30 +44,39 @@ export const createNewTask = async (
   dueDate: string
 ): Promise<TaskResponse> => {
   const endpoint = `${url}/tasks`
-  const token = await getAuthToken()
+  const headers = await buildHeaders()
 
-  return HttpClient.request<TaskResponse>(endpoint, {
-    method: 'POST',
-    body: JSON.stringify({
-      userId: 5,
-      completed: false,
-      title,
-      description,
-      priority,
-      createdAt: createdAt,
-      dueDate: dueDate,
-    }),
-  }, 5000, token)
+  return HttpClient.request<TaskResponse>(
+    endpoint,
+    {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({
+        completed: false,
+        title,
+        description,
+        priority,
+        createdAt,
+        dueDate,
+      }),
+    },
+    REQUEST_TIMEOUT
+  )
 }
 
 export const toggleTaskCompletion = async (id: number, completed: boolean) => {
   const endpoint = `${url}/tasks/${id}`
-  const token = await getAuthToken()
+  const headers = await buildHeaders()
 
-  return HttpClient.request<TaskResponse>(endpoint, {
-    method: 'PATCH',
-    body: JSON.stringify({ completed: !completed, userId: 5 }),
-  }, 5000, token)
+  return HttpClient.request<TaskResponse>(
+    endpoint,
+    {
+      headers,
+      method: 'PATCH',
+      body: JSON.stringify({ completed: !completed }),
+    },
+    REQUEST_TIMEOUT
+  )
 }
 
 export const updateTask = async (
@@ -63,17 +84,37 @@ export const updateTask = async (
   updatedTask: Partial<TaskProps>
 ) => {
   const endpoint = `${url}/tasks/${id}`
-  const token = await getAuthToken()
+  const headers = await buildHeaders()
 
-  return HttpClient.request<TaskResponse>(endpoint, {
-    method: 'PATCH',
-    body: JSON.stringify({ ...updatedTask, userId: 5 }),
-  }, 5000, token)
+  return HttpClient.request<TaskResponse>(
+    endpoint,
+    {
+      headers,
+      method: 'PATCH',
+      body: JSON.stringify({ ...updatedTask }),
+    },
+    REQUEST_TIMEOUT
+  )
 }
 
 export const deleteTaskById = async (id: number) => {
   const endpoint = `${url}/tasks/${id}`
-  const token = await getAuthToken()
+  const headers = await buildHeaders()
 
-  return HttpClient.request<TaskResponse>(endpoint, { method: 'DELETE' }, 5000, token)
+  return HttpClient.request<TaskResponse>(
+    endpoint,
+    { headers, method: 'DELETE' },
+    REQUEST_TIMEOUT
+  )
+}
+
+const buildHeaders = async () => {
+  const token = await getAuthToken()
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  }
+
+  return headers
 }

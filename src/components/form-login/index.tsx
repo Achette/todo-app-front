@@ -8,6 +8,7 @@ import { handleSubmitLoginForm, saveAuthTokenCookie } from './action'
 import { useRouter } from 'next/navigation'
 import { toaster } from '../ui/toaster'
 import { FormCommon } from '../form-commons'
+import { authService } from '@/services/auth-service'
 import { saveToSessionStorage } from '@/utils/sessionStorage'
 
 export interface FormLoginInput {
@@ -31,15 +32,9 @@ export const FormLogin = () => {
     formData.append(FormContent.LOGIN.EMAIL.inputType, data.email)
     formData.append(FormContent.LOGIN.PASSWORD.inputType, data.password)
 
-    const response = await handleSubmitLoginForm(formData)
-    console.log('[Response]', response)
+    const response: AuthLogin = await handleSubmitLoginForm(formData)
 
-    saveToSessionStorage('user', {
-      username: response.username,
-      name: response.name,
-    })
-
-    if (!response.success && response.error) {
+    if (!response.access_token) {
       toaster.create({
         title: `Usuário ou senha incorretos.`,
         type: 'error',
@@ -49,12 +44,19 @@ export const FormLogin = () => {
     }
 
     toaster.create({
-      title: `Bem-vindo ${response.name}`,
+      title: `Usuário autenticado!`,
       type: 'success',
       duration: 4000,
     })
 
-    await saveAuthTokenCookie(response.token)
+    await saveAuthTokenCookie(response.access_token, response.expires_in)
+
+    const loggedUser = await authService.getMe()
+
+    if (loggedUser) {
+      const { email, name } = loggedUser
+      saveToSessionStorage('loggedUser', { email, name })
+    }
     router.push('/tasks')
   }
 

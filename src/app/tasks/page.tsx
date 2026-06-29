@@ -16,6 +16,7 @@ const TaskDashboard = async () => {
       error instanceof Error ? error.message : 'Erro desconhecido'
     console.error('Erro ao buscar tarefas:', errorMessage)
   }
+
   const hasTasks = tasks.length > 0
 
   const { activeTasks, doneTasks } = filterTasks(tasks)

@@ -4,12 +4,10 @@ import { getFromSessionStorage } from '@/utils/sessionStorage'
 import { Avatar, HStack, Stack, Text } from '@chakra-ui/react'
 
 export const PersonalAvatar = () => {
-  const [user, setUser] = useState<{ username: string; name: string } | null>(
-    null
-  )
+  const [user, setUser] = useState<{ email: string; name: string } | null>(null)
 
   useEffect(() => {
-    setUser(getFromSessionStorage('user'))
+    setUser(getFromSessionStorage('loggedUser'))
   }, [])
 
   return (
@@ -22,7 +20,7 @@ export const PersonalAvatar = () => {
           {user?.name ?? 'Usuário'}
         </Text>
         <Text color="gray600" textStyle="xs">
-          {user?.username ?? ''}
+          {user?.email ?? ''}
         </Text>
       </Stack>
     </HStack>

@@ -1,7 +1,7 @@
 const isServer = typeof globalThis.window === 'undefined'
 
 interface SessionStorageData {
-  username: string
+  email: string
   name: string
 }
 

@@ -16,12 +16,12 @@ export async function handleSubmitLoginForm(formData: FormData): Promise<any> {
   }
 }
 
-export async function saveAuthTokenCookie(token: string) {
+export async function saveAuthTokenCookie(token: string, expires: number) {
   const cookieStore = await cookies()
   cookieStore.set('authToken', token, {
     httpOnly: true,
     secure: true,
     sameSite: 'strict',
-    maxAge: 60 * 60 * 24 * 7, // 7 days
+    maxAge: expires
   })
 }
